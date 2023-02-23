@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Constants\Messages;
+use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\RegisterRequest;
+use App\Models\User;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
+
+class AuthController extends Controller
+{
+    public function login(LoginRequest $request): JsonResponse
+    {
+        // Attempt to log the user in
+        if (auth()->attempt($request->only('email', 'password'))) {
+            // If login succeeds
+            $user = User::where('email', $request['email'])->first();
+            $token = $user->createToken('33in1AppAuthAccessToken')->plainTextToken;
+            return response()->json([
+                'message' => Messages::SUCCESS_LOGIN,
+                'token' => $token,
+            ]);
+        } else {
+            // If login fails, redirect the user back to the login form with error message
+            return response()->json([
+                'message' => Messages::BAD_CREDENTIALS
+            ], 400);
+        }
+    }
+
+    public function register(RegisterRequest $request): JsonResponse
+    {
+        try {
+            $validatedData = $request->validated();
+            $user = User::create([
+                'first_name' => $validatedData['firstName'],
+                'email' => $validatedData['email'],
+                'password' => bcrypt($validatedData['password']),
+            ]);
+            return response()->json([
+                'message' => Messages::SUCCESS_REGISTER,
+                'user' => $user
+            ], 201);
+        } catch (QueryException $exception) {
+            return response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage()
+            ], 400);
+        }
+    }
+
+    public function logout(): JsonResponse
+    {
+        $userId = auth()->user()->getAuthIdentifier();
+        if (!$userId) {
+            return response()->json(['message' => 'Bad Request!'], 400);
+        }
+        auth()->user()->tokens()->delete();
+        return response()->json(['message' => Messages::SUCCESS_LOGOUT]);
+    }
+}
