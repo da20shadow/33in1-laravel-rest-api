@@ -61,6 +61,15 @@ class Messages
     const DELETE_HOMEWORK_LOG_SUCCESS = 'Successfully deleted homework log!';
     const DELETE_HOMEWORK_LOG_FAILURE = 'Unable to delete homework log!';
 
+    //Water
+    const WATER_LOGS_NOT_EXIST = 'Water logs not exist for this period.';
+    const ADD_WATER_LOG_SUCCESS = 'Water log added successfully.';
+    const ADD_WATER_LOG_FAILURE = 'Unable to add water.';
+    const UPDATE_WATER_LOG_SUCCESS = 'Water log updated successfully.';
+    const UPDATE_WATER_LOG_FAILURE = 'Unable to update water log.';
+    const DELETE_WATER_LOG_SUCCESS = 'Water log deleted successfully.';
+    const DELETE_WATER_LOG_FAILURE = 'Unable to delete water log.';
+
     //DEFAULT Messages
     const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
     const NO_RIGHTS = "You have no rights to complete this operation!";

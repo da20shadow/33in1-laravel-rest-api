@@ -53,7 +53,6 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::get('homework',[HomeWorkController::class,'index']);
 
     /** ----------Homework Logs---------- */
-    //TODO: Status In progress
     Route::post('homework-logs/add',[HomeworkLogController::class,'store']);
     Route::patch('homework-logs/{id}/update',[HomeworkLogController::class,'update']);
     Route::delete('homework-logs/{id}/delete',[HomeworkLogController::class,'destroy']);
@@ -61,6 +60,7 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::get('homework-logs',[HomeworkLogController::class,'index']);
 
     /** ----------Water---------- */
+    //TODO: Status In progress
     Route::post('waters/add',[WaterController::class,'store']);
     Route::patch('waters/{id}/update',[WaterController::class,'update']);
     Route::delete('waters/{id}/delete',[WaterController::class,'destroy']);
