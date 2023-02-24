@@ -28,8 +28,8 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::patch('profile/update', [UserController::class, 'update']);
     Route::delete('profile/delete', [UserController::class, 'destroy']);
     Route::get('body-composition', [BodyCompositionController::class, 'index']);
-    Route::get('body-composition/add', [BodyCompositionController::class, 'store']);
-    Route::get('body-composition/update', [BodyCompositionController::class, 'update']);
+    Route::post('body-composition/add', [BodyCompositionController::class, 'store']);
+    Route::patch('body-composition/update', [BodyCompositionController::class, 'update']);
 
     /** ----------Exercises---------- */
     Route::post('exercises/add',[ExerciseController::class,'store']);

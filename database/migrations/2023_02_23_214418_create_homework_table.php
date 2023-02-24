@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('description');
             $table->integer('cal_per_min');
+            $table->timestamps();
         });
     }
 

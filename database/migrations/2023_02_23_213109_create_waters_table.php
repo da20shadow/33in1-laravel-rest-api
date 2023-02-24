@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\User::class);
             $table->integer('amount');
             $table->dateTime('time');
+            $table->timestamps();
         });
     }
 

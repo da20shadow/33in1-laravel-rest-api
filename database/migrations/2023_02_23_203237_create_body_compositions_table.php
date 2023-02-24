@@ -14,17 +14,18 @@ return new class extends Migration
     {
         Schema::create('body_compositions', function (Blueprint $table) {
             $table->id();
-            $table->date('birth_date');
-            $table->enum('gender', ['male', 'female']);
-            $table->float('weight');
-            $table->float('height');
-            $table->float('chest');
-            $table->float('waist');
-            $table->float('arm');
-            $table->float('hips');
-            $table->float('upper_thigh');
-            $table->float('calves');
+            $table->date('birth_date')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->float('weight')->nullable();
+            $table->float('height')->nullable();
+            $table->float('chest')->nullable();
+            $table->float('waist')->nullable();
+            $table->float('arm')->nullable();
+            $table->float('hips')->nullable();
+            $table->float('upper_thigh')->nullable();
+            $table->float('calves')->nullable();
             $table->foreignIdFor(User::class)->nullable(false)->unique();
+            $table->timestamps();
         });
     }
 

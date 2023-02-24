@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('calories');
             $table->foreignIdFor(\App\Models\Homework::class);
             $table->foreignIdFor(\App\Models\User::class);
+            $table->timestamps();
         });
     }
 

@@ -34,8 +34,14 @@ class AuthController extends Controller
     {
         try {
             $validatedData = $request->validated();
+
+            if ($this->userExist($validatedData['email'])) {
+                return response()->json([
+                    'message' => Messages::EMAIL_EXIST,
+                ], 400);
+            }
+
             $user = User::create([
-                'first_name' => $validatedData['firstName'],
                 'email' => $validatedData['email'],
                 'password' => bcrypt($validatedData['password']),
             ]);
@@ -60,4 +66,15 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
         return response()->json(['message' => Messages::SUCCESS_LOGOUT]);
     }
+
+    private function userExist(string $email): bool
+    {
+        $user = User::where('email',$email)->first();
+        if ($user) {
+            return true;
+        }
+        return false;
+    }
+
+
 }
