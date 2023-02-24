@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->enum('status',['Running','Finished']);
-            $table->timestamps();
         });
     }
 

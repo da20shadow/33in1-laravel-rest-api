@@ -26,7 +26,6 @@ return new class extends Migration {
             $table->float('iron');
             $table->enum('status',['Waiting Approval','Published']);
             $table->enum('category', ['Appetizer','Salad','Soup','Fish','Main dish','Roast','Dessert','Snack']);
-            $table->timestamps();
         });
     }
 

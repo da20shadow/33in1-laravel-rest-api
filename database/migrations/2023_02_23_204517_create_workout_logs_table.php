@@ -21,7 +21,6 @@ return new class extends Migration
             $table->float('calories')->nullable(false);
             $table->dateTime('start_time');
             $table->foreignIdFor(User::class)->nullable(false);
-            $table->timestamps();
         });
     }
 

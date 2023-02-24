@@ -19,6 +19,7 @@ class Messages
     //Body Composition
     const ADDED_BODY_COMPOSITION_SUCCESS = 'Successfully added body composition';
     const UPDATED_BODY_COMPOSITION_SUCCESS = 'Successfully updated body composition';
+    const BODY_COMPOSITION_EXIST = 'Body composition already added!';
 
     //Exercises
     const EXERCISE_ADDED_SUCCESS = 'Successfully added new exercise.';
@@ -26,5 +27,6 @@ class Messages
 
     //DEFAULT Messages
     const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
+    const NO_RIGHTS = "You have no rights to complete this operation!";
 
 }

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->float('cal_per_rep')->nullable();
             $table->float('cal_per_min')->nullable();
             $table->enum('type',['Chest','Shoulder','Arms','Back','Abs','Legs'])->nullable(false);
-            $table->timestamps();
         });
     }
 

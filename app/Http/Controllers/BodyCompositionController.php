@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Constants\Messages;
 use App\Http\Requests\BodyComposition\AddBodyCompositionRequest;
 use App\Http\Requests\BodyComposition\UpdateBodyCompositionRequest;
+use App\Models\BodyComposition;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -31,8 +32,13 @@ class BodyCompositionController extends Controller
     public function store(AddBodyCompositionRequest $request): JsonResponse
     {
         try {
-            $validatedData = $request->validated();
             $userId = auth()->user()->getAuthIdentifier();
+            if ($this->bodyCompositionExist($userId)) {
+                return response()->json([
+                    'message' => Messages::BODY_COMPOSITION_EXIST,
+                ], 400);
+            }
+            $validatedData = $request->validated();
             $validatedData['user_id'] = $userId;
             //Add body composition info
             DB::table('body_compositions')->insert([$validatedData]);
@@ -65,5 +71,21 @@ class BodyCompositionController extends Controller
                 'error' => $exception->getMessage()
             ], 400);
         }
+    }
+
+    private function bodyCompositionExist(int $userId): bool
+    {
+        try {
+            $bodyComp = BodyComposition::where(['user_id' => $userId])->first();
+            echo($bodyComp);
+            if ($bodyComp){ return true; }
+        } catch (QueryException $exception) {
+            response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage()
+            ], 400);
+            return true;
+        }
+        return false;
     }
 }

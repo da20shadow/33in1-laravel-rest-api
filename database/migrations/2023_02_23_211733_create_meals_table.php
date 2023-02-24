@@ -17,7 +17,6 @@ return new class extends Migration
                 'Lunch', 'Dinner', 'Morning snack',
                 'Afternoon snack', 'Evening snack']);
             $table->string('description');
-            $table->timestamps();
         });
     }
 

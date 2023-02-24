@@ -25,7 +25,6 @@ return new class extends Migration
             $table->float('upper_thigh')->nullable();
             $table->float('calves')->nullable();
             $table->foreignIdFor(User::class)->nullable(false)->unique();
-            $table->timestamps();
         });
     }
 
