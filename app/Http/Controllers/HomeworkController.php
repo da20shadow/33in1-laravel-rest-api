@@ -163,4 +163,17 @@ class HomeworkController extends Controller
         }
         return false;
     }
+
+    public static function getHomeworkById(int $homeworkId)
+    {
+        try {
+            return Homework::where(['id' => $homeworkId])->first();
+        } catch (QueryException $exception) {
+            response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage()
+            ], 400);
+            return null;
+        }
+    }
 }

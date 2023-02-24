@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('homework_logs', function (Blueprint $table) {
             $table->id();
             $table->integer('minutes');
-            $table->integer('calories');
+            $table->float('calories');
+            $table->dateTime('start_time');
             $table->foreignIdFor(\App\Models\Homework::class);
             $table->foreignIdFor(\App\Models\User::class);
         });

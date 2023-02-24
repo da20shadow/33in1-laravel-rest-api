@@ -52,6 +52,15 @@ class Messages
     const DELETE_HOMEWORK_SUCCESS = 'Homework deleted successfully.';
     const DELETE_HOMEWORK_FAILURE = 'Unable to delete homework.';
 
+    //Homework Logs
+    const HOMEWORK_LOG_NOT_EXIST = 'Such homework log not exist.';
+    const ADD_HOMEWORK_LOG_SUCCESS = 'Successfully added new homework log!';
+    const ADD_HOMEWORK_LOG_FAILURE = 'Unable to add homework log!';
+    const UPDATE_HOMEWORK_LOG_SUCCESS = 'Successfully updated new homework log!';
+    const UPDATE_HOMEWORK_LOG_FAILURE = 'Unable to update homework log!';
+    const DELETE_HOMEWORK_LOG_SUCCESS = 'Successfully deleted homework log!';
+    const DELETE_HOMEWORK_LOG_FAILURE = 'Unable to delete homework log!';
+
     //DEFAULT Messages
     const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
     const NO_RIGHTS = "You have no rights to complete this operation!";

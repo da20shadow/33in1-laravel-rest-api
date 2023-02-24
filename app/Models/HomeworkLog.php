@@ -14,5 +14,6 @@ class HomeworkLog extends Model
         'calories',
         'homework_id',
         'user_id',
+        'start_time'
     ];
 }
