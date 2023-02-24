@@ -41,6 +41,16 @@ class Messages
     const DELETED_WORKOUT_LOG_FAILURE = 'Unable to Deleted Workout Log.';
     const WORKOUT_LOG_NOT_EXIST = 'Workout Log not exist.';
 
+    //Homework
+    const NO_HOMEWORK = 'No homework added yet.';
+    const HOMEWORK_NOT_EXIST = 'Such homework not exist.';
+    const HOMEWORK_EXIST = 'Such homework already exists.';
+    const HOMEWORK_ADDED_SUCCESS = 'Homework added successfully.';
+    const HOMEWORK_ADDED_FAILURE = 'Unable to add homework.';
+    const HOMEWORK_UPDATE_SUCCESS = 'Homework updated successfully.';
+    const HOMEWORK_UPDATE_FAILURE = 'Unable to update homework.';
+    const DELETE_HOMEWORK_SUCCESS = 'Homework deleted successfully.';
+    const DELETE_HOMEWORK_FAILURE = 'Unable to delete homework.';
 
     //DEFAULT Messages
     const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';

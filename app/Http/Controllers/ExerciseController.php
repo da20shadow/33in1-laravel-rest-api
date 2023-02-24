@@ -15,8 +15,8 @@ class ExerciseController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $exercises = DB::table('exercises')->get('*');
-            if ($exercises) {
+            $exercises = DB::table('exercises')->get();
+            if ($exercises->isNotEmpty()) {
                 return response()->json($exercises);
             }
             return response()->json([

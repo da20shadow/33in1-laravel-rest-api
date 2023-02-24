@@ -49,49 +49,50 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::post('homework/add',[HomeWorkController::class,'store']);
     Route::patch('homework/{id}/update',[HomeWorkController::class,'update']);
     Route::delete('homework/{id}/delete',[HomeWorkController::class,'destroy']);
-    Route::get('homework/{id}',[HomeWorkController::class,'show']);
+    Route::get('homework/{id}/details',[HomeWorkController::class,'show']);
     Route::get('homework',[HomeWorkController::class,'index']);
 
     /** ----------Homework Logs---------- */
+    //TODO: Status In progress
     Route::post('homework-logs/add',[HomeworkLogController::class,'store']);
     Route::patch('homework-logs/{id}/update',[HomeworkLogController::class,'update']);
     Route::delete('homework-logs/{id}/delete',[HomeworkLogController::class,'destroy']);
-    Route::get('homework-logs/{id}',[HomeworkLogController::class,'show']);
+    Route::get('homework-logs/{id}/details',[HomeworkLogController::class,'show']);
     Route::get('homework-logs',[HomeworkLogController::class,'index']);
 
     /** ----------Water---------- */
     Route::post('waters/add',[WaterController::class,'store']);
     Route::patch('waters/{id}/update',[WaterController::class,'update']);
     Route::delete('waters/{id}/delete',[WaterController::class,'destroy']);
-    Route::get('waters/{id}',[WaterController::class,'show']);
+    Route::get('waters/{id}/details',[WaterController::class,'show']);
     Route::get('waters',[WaterController::class,'index']);
 
     /** ----------Food---------- */
     Route::post('food/add',[FoodController::class,'store']);
     Route::patch('food/{id}/update',[FoodController::class,'update']);
     Route::delete('food/{id}/delete',[FoodController::class,'destroy']);
-    Route::get('food/{id}',[FoodController::class,'show']);
+    Route::get('food/{id}/details',[FoodController::class,'show']);
     Route::get('food',[FoodController::class,'index']);
 
     /** ----------Meals---------- */
     Route::post('meals/add',[MealController::class,'store']);
     Route::patch('meals/{id}/update',[MealController::class,'update']);
     Route::delete('meals/{id}/delete',[MealController::class,'destroy']);
-    Route::get('meals/{id}',[MealController::class,'show']);
+    Route::get('meals/{id}/details',[MealController::class,'show']);
     Route::get('meals',[MealController::class,'index']);
 
     /** ----------Meal Logs---------- */
     Route::post('meal-logs/add',[MealLogController::class,'store']);
     Route::patch('meal-logs/{id}/update',[MealLogController::class,'update']);
     Route::delete('meal-logs/{id}/delete',[MealLogController::class,'destroy']);
-    Route::get('meal-logs/{id}',[MealLogController::class,'show']);
+    Route::get('meal-logs/{id}/details',[MealLogController::class,'show']);
     Route::get('meal-logs',[MealLogController::class,'index']);
 
     /** ----------Activity---------- */
     Route::post('activities/add',[ActivityController::class,'store']);
     Route::patch('activities/{id}/update',[ActivityController::class,'update']);
     Route::delete('activities/{id}/delete',[ActivityController::class,'destroy']);
-    Route::get('activities/{id}',[ActivityController::class,'show']);
+    Route::get('activities/{id}/details',[ActivityController::class,'show']);
     Route::get('activities',[ActivityController::class,'index']);
 
 });

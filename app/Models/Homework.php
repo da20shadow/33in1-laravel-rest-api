@@ -11,6 +11,6 @@ class Homework extends Model
     protected $fillable = [
         'name',
         'description',
-        'cal_per_min',
+        'met',
     ];
 }
