@@ -37,7 +37,7 @@ class BodyCompositionController extends Controller
             //Add body composition info
             DB::table('body_compositions')->insert([$validatedData]);
             return response()->json([
-                'message' => Messages::SUCCESS_ADDED_BODY_COMPOSITION,
+                'message' => Messages::ADDED_BODY_COMPOSITION_SUCCESS,
             ], 201);
         } catch (QueryException $exception) {
             return response()->json([
@@ -57,7 +57,7 @@ class BodyCompositionController extends Controller
                 ->where(['user_id' => $userId])
                 ->update($validatedData);
             return response()->json([
-                'message' => Messages::SUCCESS_UPDATED_BODY_COMPOSITION,
+                'message' => Messages::UPDATED_BODY_COMPOSITION_SUCCESS,
             ]);
         } catch (QueryException $exception) {
             return response()->json([
