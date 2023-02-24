@@ -5,17 +5,26 @@ namespace App\Constants;
 class Messages
 {
 
-    const SUCCESS_LOGIN = 'Successfully logged in.';
-    const SUCCESS_LOGOUT = 'Successfully logged out.';
-    const SUCCESS_REGISTER = 'Successfully registered.';
-    const SUCCESS_UPDATE_PROFILE = 'Profile updated successfully.';
-
-    const SUCCESS_ADDED_BODY_COMPOSITION = 'Successfully added body composition';
-    const SUCCESS_UPDATED_BODY_COMPOSITION = 'Successfully updated body composition';
+    //User
+    const LOGIN_SUCCESS = 'Successfully logged in.';
+    const LOGOUT_SUCCESS = 'Successfully logged out.';
+    const REGISTER_SUCCESS = 'Successfully registered.';
+    const UPDATE_PROFILE_SUCCESS = 'Profile updated successfully.';
+    const DELETED_PROFILE_SUCCESS = 'Successfully Deleted Account.';
 
     const BAD_CREDENTIALS = 'Invalid Email or Password.';
     const EMAIL_EXIST = 'User with this email already registered.';
     const USER_NOT_FOUND = 'User not found.';
+
+    //Body Composition
+    const ADDED_BODY_COMPOSITION_SUCCESS = 'Successfully added body composition';
+    const UPDATED_BODY_COMPOSITION_SUCCESS = 'Successfully updated body composition';
+
+    //Exercises
+    const EXERCISE_ADDED_SUCCESS = 'Successfully added new exercise.';
+
+
+    //DEFAULT Messages
     const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
 
 }

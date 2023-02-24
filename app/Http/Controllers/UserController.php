@@ -21,26 +21,13 @@ class UserController extends Controller
         try {
             $validatedData = $request->validated();
             $userId = auth()->user()->getAuthIdentifier();
-            $user = null;
-            if (isset($validatedData['firstName'])) {
-                $user = User::where('id', $userId)
-                    ->update(['first_name' => $validatedData['firstName']]);
-            }
-            if (isset($validatedData['lastName'])) {
-                $user = User::where('id', $userId)
-                    ->update(['last_name' => $validatedData['lastName']]);
-            }
-            if (isset($validatedData['email'])) {
-                $user = User::where('id', $userId)
-                    ->update(['email' => $validatedData['email']]);
-            }
+
             if (isset($validatedData['password'])) {
-                $user = User::where('id', $userId)
-                    ->update(['password' => bcrypt($validatedData['password'])]);
+                $validatedData['password'] = bcrypt($validatedData['password']);
             }
+            User::where('id', $userId)->update($validatedData);
             return response()->json([
-                'user' => $user,
-                'message' => Messages::SUCCESS_UPDATE_PROFILE,
+                'message' => Messages::UPDATE_PROFILE_SUCCESS,
             ]);
         } catch (QueryException $exception) {
             return response()->json([
@@ -50,8 +37,19 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function destroy(): JsonResponse
     {
-        //TODO: implement delete
+        $user_id = auth()->user()->getAuthIdentifier();
+        try {
+            User::where('id',$user_id)
+                ->delete();
+        }catch (QueryException $exception){
+            return response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage()
+            ],400);
+        }
+
+        return response()->json(['message' => Messages::DELETED_PROFILE_SUCCESS]);
     }
 }

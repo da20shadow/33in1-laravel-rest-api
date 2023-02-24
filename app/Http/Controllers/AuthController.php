@@ -19,7 +19,7 @@ class AuthController extends Controller
             $user = User::where('email', $request['email'])->first();
             $token = $user->createToken('33in1AppAuthAccessToken')->plainTextToken;
             return response()->json([
-                'message' => Messages::SUCCESS_LOGIN,
+                'message' => Messages::LOGIN_SUCCESS,
                 'token' => $token,
             ]);
         } else {
@@ -46,7 +46,7 @@ class AuthController extends Controller
                 'password' => bcrypt($validatedData['password']),
             ]);
             return response()->json([
-                'message' => Messages::SUCCESS_REGISTER,
+                'message' => Messages::REGISTER_SUCCESS,
                 'user' => $user
             ], 201);
         } catch (QueryException $exception) {
@@ -64,7 +64,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Bad Request!'], 400);
         }
         auth()->user()->tokens()->delete();
-        return response()->json(['message' => Messages::SUCCESS_LOGOUT]);
+        return response()->json(['message' => Messages::LOGOUT_SUCCESS]);
     }
 
     private function userExist(string $email): bool
