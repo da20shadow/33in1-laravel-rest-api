@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BodyCompositionController;
 use App\Http\Controllers\ExerciseController;
@@ -84,5 +85,12 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::delete('meal-logs/{id}/delete',[MealLogController::class,'destroy']);
     Route::get('meal-logs/{id}',[MealLogController::class,'show']);
     Route::get('meal-logs',[MealLogController::class,'index']);
+
+    /** ----------Activity---------- */
+    Route::post('activities/add',[ActivityController::class,'store']);
+    Route::patch('activities/{id}/update',[ActivityController::class,'update']);
+    Route::delete('activities/{id}/delete',[ActivityController::class,'destroy']);
+    Route::get('activities/{id}',[ActivityController::class,'show']);
+    Route::get('activities',[ActivityController::class,'index']);
 
 });
