@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Constants\Messages;
+use App\Constants\AppMessages\Messages;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Database\QueryException;

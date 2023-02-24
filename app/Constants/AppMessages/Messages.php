@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Constants;
+namespace App\Constants\AppMessages;
 
 class Messages
 {
@@ -33,8 +33,13 @@ class Messages
     const DELETED_EXERCISE_FAILURE = 'Unable to Deleted Exercise.';
 
     //Workout Logs
+    const ADD_WORKOUT_LOG_SUCCESS = 'Successfully added workout log.';
+    const ADD_WORKOUT_LOG_FAILURE = 'Unable to added workout log.';
+    const UPDATE_WORKOUT_LOG_SUCCESS = 'Successfully updated workout log.';
+    const UPDATE_WORKOUT_LOG_FAILURE = 'Unable to update workout log.';
     const DELETED_WORKOUT_LOG_SUCCESS = 'Successfully Deleted Workout Log.';
     const DELETED_WORKOUT_LOG_FAILURE = 'Unable to Deleted Workout Log.';
+    const WORKOUT_LOG_NOT_EXIST = 'Workout Log not exist.';
 
 
     //DEFAULT Messages

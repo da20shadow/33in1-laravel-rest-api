@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Constants\Messages;
+use App\Constants\AppMessages\Messages;
 use App\Http\Requests\Exercises\AddExerciseRequest;
 use App\Http\Requests\Exercises\UpdateExerciseRequest;
 use App\Models\Exercise;
@@ -65,7 +65,7 @@ class ExerciseController extends Controller
         try {
             $exercise = DB::table('exercises')
                 ->where(['id' => $id])
-                ->first('*');
+                ->first();
             if ($exercise) {
                 return response()->json($exercise);
             }
@@ -136,7 +136,7 @@ class ExerciseController extends Controller
 
     }
 
-    private function exerciseExistByName(string $name): bool
+    public static function exerciseExistByName(string $name): bool
     {
         try {
             $exercise = Exercise::where(['name' => $name])->first();
@@ -150,7 +150,7 @@ class ExerciseController extends Controller
         }
         return false;
     }
-    private function exerciseExistById(int $id): bool
+    public static function exerciseExistById(int $id): bool
     {
         try {
             $exercise = Exercise::where(['id' => $id])->first();
@@ -163,5 +163,17 @@ class ExerciseController extends Controller
             return true;
         }
         return false;
+    }
+    public static function getExerciseById(int $id)
+    {
+        try {
+            return Exercise::where(['id' => $id])->first();
+        } catch (QueryException $exception) {
+            response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage()
+            ], 400);
+            return null;
+        }
     }
 }

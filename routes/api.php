@@ -39,7 +39,6 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::get('exercises',[ExerciseController::class,'index']);
 
     /** ----------Workout Logs---------- */
-    //TODO:
     Route::post('workouts/add', [WorkoutLogController::class, 'store']);
     Route::patch('workouts/{id}/update', [WorkoutLogController::class, 'update']);
     Route::delete('workouts/{id}/delete', [WorkoutLogController::class, 'destroy']);

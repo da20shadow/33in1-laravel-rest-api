@@ -10,6 +10,7 @@ class WorkoutLog extends Model
     use HasFactory;
 
     protected $fillable = [
+        'exercise_id',
         'reps',
         'minutes',
         'calories',

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('description')->nullable(false);
             $table->float('cal_per_rep')->nullable();
             $table->float('cal_per_min')->nullable();
+            $table->float('slow_met');
+            $table->float('moderate_met');
+            $table->float('energetic_met');
             $table->enum('type',['Chest','Shoulder','Arms','Back','Abs','Legs'])->nullable(false);
         });
     }

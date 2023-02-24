@@ -19,6 +19,9 @@ class UpdateExerciseRequest extends FormRequest
             'description' => ['string', 'sometimes', 'nullable'],
             'cal_per_rep' => ['numeric', 'sometimes', 'nullable'],
             'cal_per_min' => ['numeric', 'sometimes', 'nullable'],
+            'slow_met' => ['numeric', 'sometimes', 'nullable'],
+            'moderate_met' => ['numeric', 'sometimes', 'nullable'],
+            'energetic_met' => ['numeric', 'sometimes', 'nullable'],
             'type' => ['string', 'sometimes', 'nullable'],
         ];
     }
@@ -26,11 +29,14 @@ class UpdateExerciseRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name' => 'Please enter valid exercise name!',
-            'description' => 'Please enter valid exercise description!',
-            'cal_per_rep' => 'Please enter valid exercise calories per rep!',
-            'cal_per_min' => 'Please enter valid exercise calories per minute!',
-            'type' => 'Please enter valid exercise type!',
+            'name.string' => 'Please enter valid exercise name!',
+            'description.string' => 'Please enter valid exercise description!',
+            'cal_per_rep.numeric' => 'Please enter valid exercise calories per rep!',
+            'cal_per_min.numeric' => 'Please enter valid exercise calories per minute!',
+            'type.string' => 'Please enter valid exercise type!',
+            'slow_met.numeric' => 'Please enter valid Slow MET!',
+            'moderate_met.numeric' => 'Please enter valid Moderate MET!',
+            'energetic_met.numeric' => 'Please enter valid Energetic MET!',
         ];
     }
 
