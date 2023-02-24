@@ -20,7 +20,13 @@ class BodyCompositionController extends Controller
             $bodyComposition = DB::table('body_compositions')
                 ->where(['user_id' => $userId])
                 ->first('*');
-            return response()->json($bodyComposition);
+            if ($bodyComposition) {
+                return response()->json($bodyComposition);
+            }
+            return response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+            ], 400);
+
         } catch (QueryException $exception) {
             return response()->json([
                 'message' => Messages::DEFAULT_ERROR_MESSAGE,
@@ -40,7 +46,6 @@ class BodyCompositionController extends Controller
             }
             $validatedData = $request->validated();
             $validatedData['user_id'] = $userId;
-            //Add body composition info
             DB::table('body_compositions')->insert([$validatedData]);
             return response()->json([
                 'message' => Messages::ADDED_BODY_COMPOSITION_SUCCESS,
@@ -77,7 +82,6 @@ class BodyCompositionController extends Controller
     {
         try {
             $bodyComp = BodyComposition::where(['user_id' => $userId])->first();
-            echo($bodyComp);
             if ($bodyComp){ return true; }
         } catch (QueryException $exception) {
             response()->json([
