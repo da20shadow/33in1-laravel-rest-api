@@ -23,6 +23,11 @@ class Messages
 
     //Exercises
     const EXERCISE_ADDED_SUCCESS = 'Successfully added new exercise.';
+    const EXERCISE_UPDATED_SUCCESS = 'Successfully updated exercise.';
+    const EXERCISE_EXIST = 'Exercise with such name already added.';
+    const EXERCISE_NOT_EXIST = 'Exercise not found.';
+    const NO_EXERCISES = 'There are no exercises yet.';
+    const DELETED_EXERCISE_SUCCESS = 'Successfully Deleted Exercise.';
 
 
     //DEFAULT Messages
