@@ -23,11 +23,18 @@ class Messages
 
     //Exercises
     const EXERCISE_ADDED_SUCCESS = 'Successfully added new exercise.';
+    const EXERCISE_ADDED_FAILURE = 'Unable to added new exercise.';
     const EXERCISE_UPDATED_SUCCESS = 'Successfully updated exercise.';
+    const EXERCISE_UPDATED_FAILURE = 'Unable to updated exercise.';
     const EXERCISE_EXIST = 'Exercise with such name already added.';
     const EXERCISE_NOT_EXIST = 'Exercise not found.';
     const NO_EXERCISES = 'There are no exercises yet.';
     const DELETED_EXERCISE_SUCCESS = 'Successfully Deleted Exercise.';
+    const DELETED_EXERCISE_FAILURE = 'Unable to Deleted Exercise.';
+
+    //Workout Logs
+    const DELETED_WORKOUT_LOG_SUCCESS = 'Successfully Deleted Workout Log.';
+    const DELETED_WORKOUT_LOG_FAILURE = 'Unable to Deleted Workout Log.';
 
 
     //DEFAULT Messages

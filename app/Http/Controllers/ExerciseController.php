@@ -46,10 +46,12 @@ class ExerciseController extends Controller
                     'message' => Messages::EXERCISE_EXIST,
                 ], 400);
             }
-            DB::table('exercises')->insert([$validatedData]);
-            return response()->json([
-                'message' => Messages::EXERCISE_ADDED_SUCCESS,
-            ], 201);
+            $result = DB::table('exercises')->insert([$validatedData]);
+            if ($result) {
+                return response()->json(['message' => Messages::EXERCISE_ADDED_SUCCESS], 201);
+            }
+            return response()->json(['message' => Messages::EXERCISE_ADDED_FAILURE], 400);
+
         } catch (QueryException $exception) {
             return response()->json([
                 'message' => Messages::DEFAULT_ERROR_MESSAGE,
@@ -95,12 +97,13 @@ class ExerciseController extends Controller
                     'message' => Messages::EXERCISE_NOT_EXIST,
                 ], 400);
             }
-            DB::table('exercises')
+            $result = DB::table('exercises')
                 ->where(['id' => $id])
                 ->update($validatedData);
-            return response()->json([
-                'message' => Messages::EXERCISE_UPDATED_SUCCESS,
-            ], 201);
+            if ($result) {
+                return response()->json(['message' => Messages::EXERCISE_UPDATED_SUCCESS]);
+            }
+            return response()->json(['message' => Messages::EXERCISE_UPDATED_FAILURE], 400);
         } catch (\Exception $exception) {
             return response()->json([
                 'message' => Messages::DEFAULT_ERROR_MESSAGE,
@@ -119,8 +122,11 @@ class ExerciseController extends Controller
                     'message' => Messages::NO_RIGHTS,
                 ], 400);
             }
-            Exercise::where('id',$id)
-                ->delete();
+            $result = Exercise::where('id',$id)->delete();
+            if ($result) {
+                return response()->json(['message' => Messages::DELETED_EXERCISE_SUCCESS]);
+            }
+            return response()->json(['message' => Messages::DELETED_EXERCISE_FAILURE],400);
         }catch (QueryException $exception){
             return response()->json([
                 'message' => Messages::DEFAULT_ERROR_MESSAGE,
@@ -128,7 +134,6 @@ class ExerciseController extends Controller
             ],400);
         }
 
-        return response()->json(['message' => Messages::DELETED_EXERCISE_SUCCESS]);
     }
 
     private function exerciseExistByName(string $name): bool
