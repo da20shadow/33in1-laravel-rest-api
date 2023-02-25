@@ -15,14 +15,14 @@ class UpdateExerciseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'sometimes', 'nullable'],
-            'description' => ['string', 'sometimes', 'nullable'],
-            'cal_per_rep' => ['numeric', 'sometimes', 'nullable'],
-            'cal_per_min' => ['numeric', 'sometimes', 'nullable'],
-            'slow_met' => ['numeric', 'sometimes', 'nullable'],
-            'moderate_met' => ['numeric', 'sometimes', 'nullable'],
-            'energetic_met' => ['numeric', 'sometimes', 'nullable'],
-            'type' => ['string', 'sometimes', 'nullable'],
+            'name' => ['string', 'sometimes'],
+            'description' => ['string', 'sometimes'],
+            'cal_per_rep' => ['numeric', 'sometimes'],
+            'cal_per_min' => ['numeric', 'sometimes'],
+            'slow_met' => ['numeric', 'sometimes'],
+            'moderate_met' => ['numeric', 'sometimes'],
+            'energetic_met' => ['numeric', 'sometimes',],
+            'type' => ['string', 'sometimes'],
         ];
     }
 

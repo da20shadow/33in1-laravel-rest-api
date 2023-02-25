@@ -15,7 +15,7 @@ class AddWorkoutLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'exercise_id' => ['required','numeric'],
+            'exercise_id' => ['required','numeric','gt:0'],
             'reps' => ['numeric','required_without:minutes','nullable'],
             'minutes' => ['numeric','required_without:reps','nullable'],
             'intensity' => ['required','string', Rule::in(['slow', 'moderate', 'energetic'])]

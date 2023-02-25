@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants\AppMessages\Messages;
+use App\Constants\Health\DefaultBodyComposition;
 use App\Http\Requests\BodyComposition\AddBodyCompositionRequest;
 use App\Http\Requests\BodyComposition\UpdateBodyCompositionRequest;
 use App\Models\BodyComposition;
@@ -91,5 +92,25 @@ class BodyCompositionController extends Controller
             return true;
         }
         return false;
+    }
+
+    public static function getUserKg(int $userId): ?float
+    {
+        $personKg = null;
+
+        $bodyComposition = BodyComposition::where('user_id', $userId)->first();
+
+        if ($bodyComposition && isset($bodyComposition['weight'])) {
+            $personKg = $bodyComposition['weight'];
+        } else if (isset($bodyComposition['gender'])) {
+            if ($bodyComposition['gender'] == 'male') {
+                $personKg = DefaultBodyComposition::DEFAULT_MALE_KG;
+            } else if ($bodyComposition['gender'] == 'female') {
+                $personKg = DefaultBodyComposition::DEFAULT_FEMALE_KG;
+            }
+        } else {
+            $personKg = DefaultBodyComposition::DEFAULT_UNKNOWN_KG;
+        }
+        return $personKg;
     }
 }

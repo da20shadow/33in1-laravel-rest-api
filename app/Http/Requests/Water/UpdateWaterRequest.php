@@ -14,8 +14,8 @@ class UpdateWaterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => ['sometimes','numeric','between:50,10000','nullable'],
-            'time' => ['sometimes','date','nullable'],
+            'amount' => ['sometimes','numeric','between:50,10000'],
+            'time' => ['sometimes','date'],
         ];
     }
 

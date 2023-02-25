@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\HomeworkLogController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\MealLogController;
+use App\Http\Controllers\SleepLogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaterController;
 use App\Http\Controllers\WorkoutLogController;
@@ -58,6 +59,7 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::delete('homework-logs/{id}/delete',[HomeworkLogController::class,'destroy']);
     Route::get('homework-logs/{id}/details',[HomeworkLogController::class,'show']);
     Route::get('homework-logs',[HomeworkLogController::class,'index']);
+    Route::get('homework-logs/details',[HomeworkLogController::class,'getHomeworkLogs']);
 
     /** ----------Water---------- */
     Route::post('waters/add',[WaterController::class,'store']);
@@ -67,19 +69,11 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::get('waters',[WaterController::class,'index']);
 
     /** ----------Food---------- */
-    //TODO: Status In progress
     Route::post('foods/add',[FoodController::class,'store']);
     Route::patch('foods/{id}/update',[FoodController::class,'update']);
     Route::delete('foods/{id}/delete',[FoodController::class,'destroy']);
     Route::get('foods/{id}/details',[FoodController::class,'show']);
     Route::get('foods',[FoodController::class,'index']);
-
-    /** ----------Meals---------- */
-    Route::post('meals/add',[MealController::class,'store']);
-    Route::patch('meals/{id}/update',[MealController::class,'update']);
-    Route::delete('meals/{id}/delete',[MealController::class,'destroy']);
-    Route::get('meals/{id}/details',[MealController::class,'show']);
-    Route::get('meals',[MealController::class,'index']);
 
     /** ----------Meal Logs---------- */
     Route::post('meal-logs/add',[MealLogController::class,'store']);
@@ -88,7 +82,18 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::get('meal-logs/{id}/details',[MealLogController::class,'show']);
     Route::get('meal-logs',[MealLogController::class,'index']);
 
+    /** ----------Sleep Logs---------- */
+    Route::get('sleep-logs/clear', [SleepLogController::class, 'checkAndStopLastStartedSleepLogIfTooLong']);
+    Route::post('sleep-logs/add', [SleepLogController::class, 'store']);
+    Route::post('sleep-logs/start', [SleepLogController::class, 'startSleep']);
+    Route::post('sleep-logs/stop', [SleepLogController::class, 'stopSleep']);
+    Route::patch('sleep-logs/{id}/update', [SleepLogController::class, 'update']);
+    Route::get('sleep-logs/{id}/details', [SleepLogController::class, 'show']);
+    Route::delete('sleep-logs/{id}/delete', [SleepLogController::class, 'destroy']);
+    Route::get('sleep-logs/', [SleepLogController::class, 'index']);
+
     /** ----------Activity---------- */
+    //TODO: Status In progress
     Route::post('activities/add',[ActivityController::class,'store']);
     Route::patch('activities/{id}/update',[ActivityController::class,'update']);
     Route::delete('activities/{id}/delete',[ActivityController::class,'destroy']);

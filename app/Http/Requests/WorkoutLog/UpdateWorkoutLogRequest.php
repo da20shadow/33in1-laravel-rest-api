@@ -15,11 +15,11 @@ class UpdateWorkoutLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'exercise_id' => ['required','numeric','sometimes','nullable'],
+            'exercise_id' => ['required','numeric','sometimes','gt:0'],
             'reps' => ['numeric','sometimes','nullable'],
             'minutes' => ['numeric','sometimes','nullable'],
-            'intensity' => ['required','string', Rule::in(['slow', 'moderate', 'energetic']),'sometimes','nullable'],
-            'start_time' => ['date','sometimes','nullable'],
+            'intensity' => ['required','string', Rule::in(['slow', 'moderate', 'energetic']),'sometimes'],
+            'start_time' => ['date','sometimes'],
         ];
     }
 

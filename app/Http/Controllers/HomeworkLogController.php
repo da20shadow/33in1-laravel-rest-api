@@ -13,6 +13,8 @@ use DateTime;
 use DateTimeZone;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
@@ -25,7 +27,10 @@ class HomeworkLogController extends Controller
             $userId = auth()->user()->getAuthIdentifier();
             $workoutList = DB::table('homework_logs')
                 ->where('user_id', $userId)
-                ->whereBetween('start_time', [now()->subDays(30), now()])
+                ->whereBetween('start_time', [
+                    now()->subDays(30)->format('Y-m-d H:i:s'),
+                    now()->addDay()->format('Y-m-d H:i:s')])
+                ->orderBy('start_time')
                 ->get();
             if ($workoutList->isNotEmpty()) {
                 return response()->json($workoutList);
@@ -37,6 +42,62 @@ class HomeworkLogController extends Controller
                 'error' => $exception->getMessage()
             ],400);
         }
+    }
+
+    //Sorted Ordered in Logs by day
+    public function getHomeworkLogs(Request $request): JsonResponse
+    {
+        $user_id = $request->user()->id;
+
+        $logs = HomeworkLog::where('user_id', $user_id)
+            ->whereBetween('start_time', [
+                now()->subDays(30)->startOfDay(),
+                now()->addDay()->endOfDay()])
+            ->with('homework')
+            ->orderBy('start_time', 'asc')
+            ->get();
+
+        $grouped_logs = $logs->groupBy(function ($log) {
+            return Carbon::make($log->start_time)->format('Y-m-d');
+        });
+
+        $result = [];
+
+        foreach ($grouped_logs as $date => $logs) {
+            $day_logs = [];
+
+            foreach ($logs as $log) {
+                $homework_name = $log->homework->name;
+                $start_time = Carbon::make($log->start_time)->format('H:i');
+                $total_minutes = $log->minutes;
+                $calories_burned = $log->calories;
+
+                if (isset($day_logs[$homework_name])) {
+                    $day_logs[$homework_name]['minutes'] += $total_minutes;
+                    $day_logs[$homework_name]['calories'] += $calories_burned;
+                } else {
+                    $day_logs[$homework_name] = [
+                        'work_name' => $homework_name,
+                        'start_time' => $start_time,
+                        'minutes' => $total_minutes,
+                        'calories' => $calories_burned,
+                    ];
+                }
+            }
+
+            $day_logs = array_values($day_logs);
+
+            usort($day_logs, function ($a, $b) {
+                return strcmp($a['start_time'], $b['start_time']);
+            });
+
+            $result[] = [
+                'date' => $date,
+                'logs' => $day_logs,
+            ];
+        }
+
+        return response()->json($result);
     }
 
     public function store(AddHomeworkLogRequest $request): JsonResponse

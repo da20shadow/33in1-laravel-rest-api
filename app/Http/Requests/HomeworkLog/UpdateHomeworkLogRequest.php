@@ -14,10 +14,10 @@ class UpdateHomeworkLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'minutes' => ['sometimes','numeric','nullable'],
-            'calories' => ['sometimes','numeric','nullable'],
-            'start_date' => ['sometimes','date','nullable'],
-            'homework_id' => ['sometimes','numeric','nullable'],
+            'minutes' => ['sometimes','numeric'],
+            'calories' => ['sometimes','numeric'],
+            'start_date' => ['sometimes','date'],
+            'homework_id' => ['sometimes','numeric','gt:0'],
         ];
     }
 

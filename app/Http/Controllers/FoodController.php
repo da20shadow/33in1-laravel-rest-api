@@ -188,7 +188,7 @@ class FoodController extends Controller
         }
     }
 
-    private function foodExistByName(string $name): bool
+    public static function foodExistByName(string $name): bool
     {
         try {
             $food = Food::where(['name' => $name])->first();
@@ -203,7 +203,7 @@ class FoodController extends Controller
         return false;
     }
 
-    private function foodExistById(string $id)
+    public static function foodExistById(int $id)
     {
         try {
             return Food::where(['id' => $id])->first();

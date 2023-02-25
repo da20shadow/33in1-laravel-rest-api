@@ -13,10 +13,12 @@ return new class extends Migration {
         Schema::create('meal_logs', function (Blueprint $table) {
             $table->id();
             $table->float('serving_size');
-            $table->float('quantity');
+            $table->float('quantity')->default(1);
+            $table->enum('meal_type',['Breakfast','Lunch','Dinner',
+                'Morning snack', 'Afternoon snack', 'Evening snack']);
             $table->foreignIdFor(\App\Models\Food::class);
-            $table->foreignIdFor(\App\Models\Meal::class);
             $table->foreignIdFor(\App\Models\User::class);
+            $table->dateTime('created_at');
         });
     }
 

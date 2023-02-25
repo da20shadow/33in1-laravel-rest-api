@@ -15,7 +15,7 @@ class AddHomeworkLogRequest extends FormRequest
     {
         return [
             'minutes' => ['required','numeric'],
-            'homework_id' => ['required','numeric'],
+            'homework_id' => ['required','numeric','gt:0'],
         ];
     }
 

@@ -26,7 +26,7 @@ class WorkoutLogController extends Controller
         try {
             $userId = auth()->user()->getAuthIdentifier();
             $logs = WorkoutLog::where('user_id', $userId)
-                ->whereBetween('time', [
+                ->whereBetween('start_time', [
                     now()->subDays(30)->format('Y-m-d H:i:s'),
                     now()->addDay()->format('Y-m-d H:i:s')])
                 ->join('exercises', 'workout_logs.exercise_id', '=', 'exercises.id')
@@ -203,19 +203,7 @@ class WorkoutLogController extends Controller
             }
 
             //Get Body composition kg or set default kg
-            $bodyComposition = BodyComposition::where(['user_id' => $userId])->first();
-            $personKg = null;
-            if ($bodyComposition && isset($bodyComposition['weight'])) {
-                $personKg = $bodyComposition['weight'];
-            } else if (isset($bodyComposition['gender'])) {
-                if ($bodyComposition['gender'] == 'male') {
-                    $personKg = DefaultBodyComposition::DEFAULT_MALE_KG;
-                } else if ($bodyComposition['gender'] == 'female') {
-                    $personKg = DefaultBodyComposition::DEFAULT_FEMALE_KG;
-                }
-            } else {
-                $personKg = DefaultBodyComposition::DEFAULT_UNKNOWN_KG;
-            }
+            $personKg = BodyCompositionController::getUserKg($userId);
 
             //Check if exercise exists
             $exerciseExist = ExerciseController::getExerciseById($exerciseId);

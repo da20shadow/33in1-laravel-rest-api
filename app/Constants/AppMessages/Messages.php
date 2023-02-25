@@ -80,6 +80,27 @@ class Messages
     const DELETE_FOOD_SUCCESS = 'Successfully deleted food.';
     const DELETE_FOOD_FAILURE = 'Unable to delete food.';
 
+    //Meal Logs
+    const MEAL_LOG_EXIST = 'Food with this name already added!';
+    const MEAL_LOG_NOT_FOUND = 'Not Found Food!';
+    const ADD_MEAL_LOG_SUCCESS = 'Successfully added food.';
+    const ADD_MEAL_LOG_FAILURE = 'Unable to add food.';
+    const UPDATE_MEAL_LOG_SUCCESS = 'Successfully updated food.';
+    const UPDATE_MEAL_LOG_FAILURE = 'Unable to update food.';
+    const DELETE_MEAL_LOG_SUCCESS = 'Successfully deleted food.';
+    const DELETE_MEAL_LOG_FAILURE = 'Unable to delete food.';
+
+    //Sleep Log
+    const SLEEP_LOG_EXIST = 'Sleep log already added!';
+    const SLEEP_LOG_NOT_FOUND = 'Not Found sleep log!';
+    const ADD_SLEEP_LOG_SUCCESS = 'Successfully added sleep log.';
+    const ADD_SLEEP_LOG_FAILURE = 'Unable to add sleep log.';
+    const UPDATE_SLEEP_LOG_SUCCESS = 'Successfully updated sleep log.';
+    const UPDATE_SLEEP_LOG_FAILURE = 'Unable to update sleep log.';
+    const DELETE_SLEEP_LOG_SUCCESS = 'Successfully deleted sleep log.';
+    const DELETE_SLEEP_LOG_FAILURE = 'Unable to delete sleep log.';
+    const SLEEP_LOG_STARTED_SUCCESS = 'Sleep session started successfully';
+
     //DEFAULT Messages
     const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
     const NO_RIGHTS = "You have no rights to complete this operation!";

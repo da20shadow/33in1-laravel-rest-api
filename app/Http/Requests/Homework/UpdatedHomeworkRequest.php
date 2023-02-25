@@ -14,9 +14,9 @@ class UpdatedHomeworkRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes','string','nullable'],
-            'description' => ['sometimes','string','nullable'],
-            'met' => ['sometimes','numeric','nullable'],
+            'name' => ['sometimes','string'],
+            'description' => ['sometimes','string'],
+            'met' => ['sometimes','numeric'],
         ];
     }
 

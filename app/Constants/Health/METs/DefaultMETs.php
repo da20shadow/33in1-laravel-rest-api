@@ -4,7 +4,7 @@ namespace App\Constants\Health\METs;
 
 class DefaultMETs
 {
-    const SLEEPING = 0.95;
+    const SLEEPING = 0.97;
     const LYING_DOING_NOTHING = 1;
     const LYING_AND_TALKING = 1.3;
     const SITTING = 1.3;
