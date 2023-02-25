@@ -60,7 +60,6 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::get('homework-logs',[HomeworkLogController::class,'index']);
 
     /** ----------Water---------- */
-    //TODO: Status In progress
     Route::post('waters/add',[WaterController::class,'store']);
     Route::patch('waters/{id}/update',[WaterController::class,'update']);
     Route::delete('waters/{id}/delete',[WaterController::class,'destroy']);
@@ -68,11 +67,12 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::get('waters',[WaterController::class,'index']);
 
     /** ----------Food---------- */
-    Route::post('food/add',[FoodController::class,'store']);
-    Route::patch('food/{id}/update',[FoodController::class,'update']);
-    Route::delete('food/{id}/delete',[FoodController::class,'destroy']);
-    Route::get('food/{id}/details',[FoodController::class,'show']);
-    Route::get('food',[FoodController::class,'index']);
+    //TODO: Status In progress
+    Route::post('foods/add',[FoodController::class,'store']);
+    Route::patch('foods/{id}/update',[FoodController::class,'update']);
+    Route::delete('foods/{id}/delete',[FoodController::class,'destroy']);
+    Route::get('foods/{id}/details',[FoodController::class,'show']);
+    Route::get('foods',[FoodController::class,'index']);
 
     /** ----------Meals---------- */
     Route::post('meals/add',[MealController::class,'store']);

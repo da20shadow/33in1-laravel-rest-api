@@ -14,18 +14,11 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->unique()->nullable(false);
             $table->integer('calories')->nullable(false);
-            $table->float('protein');
-            $table->float('carbs');
-            $table->float('fat');
-            $table->float('fiber');
-            $table->float('vitaminA');
-            $table->float('vitaminC');
-            $table->float('potassium');
-            $table->float('calcium');
-            $table->float('sodium');
-            $table->float('iron');
-            $table->enum('status',['Waiting Approval','Published']);
-            $table->enum('category', ['Appetizer','Salad','Soup','Fish','Main dish','Roast','Dessert','Snack']);
+            $table->float('carbs')->default(0);
+            $table->float('protein')->default(0);
+            $table->float('fat')->default(0);
+            $table->enum('status',['Waiting Approval','Published'])->default('Waiting Approval');
+            $table->enum('category', ['Appetizer','Fruits salad','Vegetable salad','Soup','Fish','Main dish','Roast','Dessert','Snack']);
         });
     }
 

@@ -70,6 +70,16 @@ class Messages
     const DELETE_WATER_LOG_SUCCESS = 'Water log deleted successfully.';
     const DELETE_WATER_LOG_FAILURE = 'Unable to delete water log.';
 
+    //Food
+    const FOOD_EXIST = 'Food with this name already added!';
+    const FOOD_NOT_FOUND = 'Not Found Food!';
+    const ADD_FOOD_SUCCESS = 'Successfully added food.';
+    const ADD_FOOD_FAILURE = 'Unable to add food.';
+    const UPDATE_FOOD_SUCCESS = 'Successfully updated food.';
+    const UPDATE_FOOD_FAILURE = 'Unable to update food.';
+    const DELETE_FOOD_SUCCESS = 'Successfully deleted food.';
+    const DELETE_FOOD_FAILURE = 'Unable to delete food.';
+
     //DEFAULT Messages
     const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
     const NO_RIGHTS = "You have no rights to complete this operation!";

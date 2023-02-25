@@ -15,12 +15,7 @@ class Food extends Model
         'protein',
         'carbs',
         'fat',
-        'fiber',
-        'vitaminA',
-        'vitaminC',
-        'potassium',
-        'calcium',
-        'sodium',
-        'iron',
+        'status',
+        'category',
     ];
 }
