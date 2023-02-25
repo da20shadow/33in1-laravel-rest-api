@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Constants\Messages;
+use App\Constants\AppMessages\Messages;
 use App\Http\Requests\BodyComposition\AddBodyCompositionRequest;
 use App\Http\Requests\BodyComposition\UpdateBodyCompositionRequest;
 use App\Models\BodyComposition;
