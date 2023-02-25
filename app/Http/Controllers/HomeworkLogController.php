@@ -9,6 +9,8 @@ use App\Http\Requests\HomeworkLog\AddHomeworkLogRequest;
 use App\Http\Requests\HomeworkLog\UpdateHomeworkLogRequest;
 use App\Models\BodyComposition;
 use App\Models\HomeworkLog;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -186,8 +188,14 @@ class HomeworkLogController extends Controller
             if (!$burnedCalories) { return null; }
 
             $homeworkLog['calories'] = $burnedCalories;
+            //TODO: make the timezone dynamic or get the Country from user
+            $timezone = new DateTimeZone('Europe/Sofia');
+            $datetime = new DateTime('now', $timezone);
+            $current_datetime = $datetime->format('Y-m-d H:i:s');
+            $homeworkLog['start_time'] = $current_datetime;
+
             return $homeworkLog;
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             //TODO: Log the error
             return null;
         }
