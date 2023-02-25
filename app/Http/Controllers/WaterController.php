@@ -6,8 +6,11 @@ use App\Constants\AppMessages\Messages;
 use App\Http\Requests\Water\AddWaterRequest;
 use App\Http\Requests\Water\UpdateWaterRequest;
 use App\Models\Water;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
@@ -18,12 +21,39 @@ class WaterController extends Controller
         //Get Last 30 days water intake logs
         try {
             $userId = auth()->user()->getAuthIdentifier();
-            $workoutList = DB::table('waters')
+            $waterIntakes = DB::table('waters')
                 ->where('user_id', $userId)
-                ->whereBetween('time', [now()->subDays(30), now()])
+                ->whereBetween('time', [
+                    now()->subDays(30)->format('Y-m-d H:i:s'),
+                    now()->addDay()->format('Y-m-d H:i:s')])
                 ->get();
-            if ($workoutList->isNotEmpty()) {
-                return response()->json($workoutList);
+            //Adding 1 day in future because of users timezones.
+            // The server is london and if you are from Bulgaria the last 2 hours data is missing if used now()
+            $intakesByDay = $waterIntakes->groupBy(function ($intake) {
+                return Carbon::make($intake->time)->format('Y-m-d');
+            });
+
+            $result = [];
+            foreach ($intakesByDay as $date => $intakes) {
+                $intakesByTime = $intakes->sortBy('time');
+
+                $resultItem = [
+                    'date' => $date,
+                    'intakes' => []
+                ];
+
+                foreach ($intakesByTime as $intake) {
+                    $resultItem['intakes'][] = [
+                        'amount' => $intake->amount,
+                        'time' => Carbon::make($intake->time)->format('H:i')
+                    ];
+                }
+
+                $result[] = $resultItem;
+            }
+
+            if ($result) {
+                return response()->json($result);
             }
             return response()->json(['message' => Messages::WATER_LOGS_NOT_EXIST], 400);
         } catch (Exception $exception) {
@@ -40,7 +70,14 @@ class WaterController extends Controller
             $validatedData = $request->validated();
             $userId = auth()->user()->getAuthIdentifier();
             $validatedData['user_id']= $userId;
-            $validatedData['time'] = new \DateTime();
+
+            //Set the timezone:
+            //TODO: make the time zone dynamic or save user country in registration or when want to use the health part of the app
+            $timezone = new DateTimeZone('Europe/Sofia');
+            $datetime = new DateTime('now', $timezone);
+            $current_datetime = $datetime->format('Y-m-d H:i:s');
+
+            $validatedData['time'] = $current_datetime;
 
             $result = DB::table('waters')->insert([$validatedData]);
             if ($result) {
@@ -48,7 +85,7 @@ class WaterController extends Controller
             }
             return response()->json(['message' => Messages::ADD_WATER_LOG_FAILURE], 400);
 
-        } catch (QueryException $exception) {
+        } catch (\Exception $exception) {
             return response()->json([
                 'message' => Messages::DEFAULT_ERROR_MESSAGE,
                 'error' => $exception->getMessage()

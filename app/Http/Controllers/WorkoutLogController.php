@@ -9,8 +9,11 @@ use App\Http\Requests\WorkoutLog\AddWorkoutLogRequest;
 use App\Http\Requests\WorkoutLog\UpdateWorkoutLogRequest;
 use App\Models\BodyComposition;
 use App\Models\WorkoutLog;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
@@ -22,12 +25,55 @@ class WorkoutLogController extends Controller
         //Get Last 30 days workout logs
         try {
             $userId = auth()->user()->getAuthIdentifier();
-            $workoutList = DB::table('workout_logs')
-                ->where('user_id', $userId)
-                ->whereBetween('start_time', [now()->subDays(30), now()])
+            $logs = WorkoutLog::where('user_id', $userId)
+                ->whereBetween('time', [
+                    now()->subDays(30)->format('Y-m-d H:i:s'),
+                    now()->addDay()->format('Y-m-d H:i:s')])
+                ->join('exercises', 'workout_logs.exercise_id', '=', 'exercises.id')
+                ->select('workout_logs.*', 'exercises.type','exercises.name')
+                ->orderBy('start_time')
                 ->get();
-            if ($workoutList->isNotEmpty()) {
-                return response()->json($workoutList);
+
+            $logsByDay = $logs->groupBy(function ($log) {
+                return Carbon::make($log->start_time)->format('Y-m-d');
+            }); // Group workout logs by date.
+
+            $result = [];
+            foreach ($logsByDay as $date => $logs) {
+                $logsByType = $logs->sortBy('type')->groupBy('type'); // Group logs by exercise type and sort by type.
+
+                $resultItem = [
+                    'date' => $date,
+                    'workouts' => []
+                ];
+
+                foreach ($logsByType as $type => $typeLogs) {
+                    $workoutItems = [];
+
+                    foreach ($typeLogs->sortBy('start_time') as $log) { // Sort logs by start time.
+                        $workoutItems[] = [
+                            'name' => $log->name,
+                            'time' => Carbon::make($log->start_time)->format('H:i'),
+                            'reps' => $log->reps,
+                            'minutes' => $log->minutes,
+                            'calories' => $log->calories,
+                        ];
+                    }
+
+                    $resultItem['workouts'][] = [
+                        'type' => $type,
+                        'items' => $workoutItems,
+                    ];
+                }
+
+                $result[] = $resultItem;
+            }
+
+            $result = collect($result)->sortBy('date')->values(); // Sort results by date.
+
+
+            if ($result->isNotEmpty()) {
+                return response()->json($result);
             }
             return response()->json(['message' => Messages::WORKOUT_LOG_NOT_EXIST], 400);
         } catch (Exception $exception) {
@@ -213,6 +259,12 @@ class WorkoutLogController extends Controller
             }
 
             $workoutLog['calories'] = $burnedCalories;
+
+            //TODO: make the timezone dynamic or get the Country from user
+            $timezone = new DateTimeZone('Europe/Sofia');
+            $datetime = new DateTime('now', $timezone);
+            $current_datetime = $datetime->format('Y-m-d H:i:s');
+            $workoutLog['start_time'] = $current_datetime;
             return $workoutLog;
 
         } catch (\Exception $exception) {
