@@ -8,14 +8,23 @@ use App\Http\Requests\Exercises\UpdateExerciseRequest;
 use App\Models\Exercise;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ExerciseController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
-            $exercises = DB::table('exercises')->get();
+            $perPage = $request->input('per_page', 10); // Set the number of records per page, default to 10.
+            $query = $request->input('query', ''); // Get the search query parameter.
+            $type = $request->input('type', ''); // Get the type parameter.
+
+            $exercises = Exercise::where('name', 'like', "%$query%") // Filter exercises by name if query parameter is present.
+            ->when($type, function ($query) use ($type) {
+                return $query->where('type', $type); // Filter exercises by type if type parameter is present.
+            })->paginate($perPage); // Paginate the results.
+
             if ($exercises->isNotEmpty()) {
                 return response()->json($exercises);
             }
