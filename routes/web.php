@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{path?}', [ReactController::class, 'index'])
-    ->where('path', '.*');
+//Route::get('/{path?}', [ReactController::class, 'index'])
+//    ->where('path', '.*');
 
-//Route::any('/{any}', [ReactController::class,'index'])
-//    ->where('any',"^(?!api).*$");
+Route::any('/{any}', [ReactController::class,'index'])
+    ->where('any',"^(?!api).*$");
 
 //Route::get('/', function () {
 //    return view('welcome');
