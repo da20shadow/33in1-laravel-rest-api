@@ -16,14 +16,14 @@ class UpdateBodyCompositionRequest extends FormRequest
         return [
             'birth_date' => ['date', 'sometimes'],
             'gender' => ['string', 'sometimes',],
-            'weight' => ['numeric', 'sometimes'],
-            'height' => ['numeric', 'sometimes'],
-            'chest' => ['numeric', 'sometimes'],
-            'waist' => ['numeric', 'sometimes'],
-            'hips' => ['numeric', 'sometimes'],
-            'upper_thigh' => ['numeric', 'sometimes'],
-            'calves' => ['numeric', 'sometimes'],
-            'arm' => ['numeric', 'sometimes'],
+            'weight' => ['numeric', 'sometimes','between:1,1000','nullable'],
+            'height' => ['numeric', 'sometimes','between:1,1000','nullable'],
+            'chest' => ['numeric', 'sometimes','between:1,1000','nullable'],
+            'waist' => ['numeric', 'sometimes','between:1,1000','nullable'],
+            'hips' => ['numeric', 'sometimes','between:1,1000','nullable'],
+            'upper_thigh' => ['numeric', 'sometimes','between:1,1000','nullable'],
+            'calves' => ['numeric', 'sometimes','between:1,1000','nullable'],
+            'arm' => ['numeric', 'sometimes','between:1,1000','nullable'],
         ];
     }
 
@@ -31,15 +31,15 @@ class UpdateBodyCompositionRequest extends FormRequest
     {
         return [
             'birth_date.string' => 'Please enter valid birth date!',
-            'gender.string' => 'Please enter valid gender!',
-            'weight.string' => 'Please enter valid weight!',
-            'height.string' => 'Please enter valid height!',
-            'chest.string' => 'Please enter valid chest!',
-            'waist.string' => 'Please enter valid waist!',
-            'hips.string' => 'Please enter valid hips!',
+            'gender.numeric' => 'Please enter valid gender!',
+            'weight.numeric' => 'Please enter valid weight!',
+            'height.numeric' => 'Please enter valid height!',
+            'chest.numeric' => 'Please enter valid chest!',
+            'waist.numeric' => 'Please enter valid waist!',
+            'hips.numeric' => 'Please enter valid hips!',
             'upper_thigh.string' => 'Please enter valid upper thigh!',
-            'calves.string' => 'Please enter valid calves!',
-            'arm.string' => 'Please enter valid arm!',
+            'calves.numeric' => 'Please enter valid calves!',
+            'arm.numeric' => 'Please enter valid arm!',
         ];
     }
 }
