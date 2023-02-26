@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="theme-color" content="#000000"/>
     <meta name="description" content="Web site created using create-react-app"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="apple-touch-icon" href="{{ asset('react-app/logo192.png') }}"/>
     <link rel="manifest" href="{{ asset('react-app/manifest.json') }}"/>
     <title>33 in one</title>

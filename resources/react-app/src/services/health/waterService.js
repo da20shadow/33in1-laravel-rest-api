@@ -1,5 +1,5 @@
 import apiRequester from "../apiRequester";
-
+import {API_PATH} from '../../constants/API_PATH';
 const waterService = {
     async add(waterData) {
         return apiRequester.post(`${API_PATH.ADD_WATER}`,waterData);
@@ -15,6 +15,9 @@ const waterService = {
     },
     async getAll() {
         return apiRequester.get(`${API_PATH.WATER}`);
+    },
+    async getAllTestOne() {
+        return apiRequester.get(`${API_PATH.TESTS}`);
     },
 };
 

@@ -1,5 +1,5 @@
 import apiRequester from '../apiRequester';
-
+import {API_PATH} from '../../constants/API_PATH';
 const userService = {
     async get() {
         return apiRequester.get(`${API_PATH.USER_PROFILE}`);

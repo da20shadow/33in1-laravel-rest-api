@@ -1,5 +1,5 @@
 import apiRequester from "../apiRequester";
-
+import {API_PATH} from '../../constants/API_PATH';
 const workoutLogService = {
     async add(workoutLogData) {
         return apiRequester.post(`${API_PATH.ADD_WORKOUT_LOG}`,workoutLogData);

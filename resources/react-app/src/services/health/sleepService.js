@@ -1,5 +1,5 @@
 import apiRequester from "../apiRequester";
-
+import {API_PATH} from '../../constants/API_PATH';
 const sleepService = {
     async add(sleepData) {
         return apiRequester.post(`${API_PATH.ADD_SLEEP_LOG}`,sleepData);

@@ -1,5 +1,5 @@
 import apiRequester from "../apiRequester";
-
+import {API_PATH} from '../../constants/API_PATH';
 const foodService = {
     async add(foodData) {
         return apiRequester.post(`${API_PATH.ADD_FOOD}`,foodData);
