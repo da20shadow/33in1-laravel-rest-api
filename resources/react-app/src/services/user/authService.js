@@ -1,4 +1,4 @@
-import apiRequester from './apiRequester';
+import apiRequester from '../apiRequester';
 
 const authService = {
     async register(userData) {

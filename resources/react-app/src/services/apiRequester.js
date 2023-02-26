@@ -15,6 +15,21 @@ const apiRequester = {
         });
         return this.handleResponse(response);
     },
+    async patch(path, body) {
+        const response = await fetch(`${this.baseUrl}/${path}`, {
+            method: 'PATCH',
+            headers: this.getHeaders(),
+            body: JSON.stringify(body),
+        });
+        return this.handleResponse(response);
+    },
+    async remove(path) {
+        const response = await fetch(`${this.baseUrl}/${path}`, {
+            method: 'DELETE',
+            headers: this.getHeaders(),
+        });
+        return this.handleResponse(response);
+    },
     getHeaders() {
         const headers = {
             'Content-Type': 'application/json',
