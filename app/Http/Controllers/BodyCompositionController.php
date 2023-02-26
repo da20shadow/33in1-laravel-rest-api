@@ -25,8 +25,8 @@ class BodyCompositionController extends Controller
                 return response()->json($bodyComposition);
             }
             return response()->json([
-                'message' => Messages::DEFAULT_ERROR_MESSAGE,
-            ], 400);
+                'message' => Messages::NO_BODY_COMPOSITION,
+            ]);
 
         } catch (QueryException $exception) {
             return response()->json([
