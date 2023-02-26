@@ -61,7 +61,7 @@ class AuthController extends Controller
     {
         $userId = auth()->user()->getAuthIdentifier();
         if (!$userId) {
-            return response()->json(['message' => 'Bad Request!'], 400);
+            return response()->json(['message' => 'Already logged out!']);
         }
         auth()->user()->tokens()->delete();
         return response()->json(['message' => Messages::LOGOUT_SUCCESS]);
