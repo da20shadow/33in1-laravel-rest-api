@@ -20,6 +20,7 @@ class Messages
     const ADDED_BODY_COMPOSITION_SUCCESS = 'Successfully added body composition';
     const UPDATED_BODY_COMPOSITION_SUCCESS = 'Successfully updated body composition';
     const BODY_COMPOSITION_EXIST = 'Body composition already added!';
+    const NO_BODY_COMPOSITION = 'Body composition not added yet!';
 
     //Exercises
     const EXERCISE_ADDED_SUCCESS = 'Successfully added new exercise.';
