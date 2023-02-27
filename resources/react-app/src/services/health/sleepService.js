@@ -10,6 +10,13 @@ const sleepService = {
     async stop() {
         return apiRequester.post(`${API_PATH.STOP_SLEEP_LOG}`);
     },
+    //TODO:
+    // async startNap() {
+    //     return apiRequester.post(`${API_PATH.START_SLEEP_LOG}`);
+    // },
+    // async stopNap() {
+    //     return apiRequester.post(`${API_PATH.STOP_SLEEP_LOG}`);
+    // },
     async update(sleepId,sleepData) {
         return apiRequester.patch(`${API_PATH.UPDATE_SLEEP_LOG}/${sleepId}`,sleepData);
     },
@@ -21,6 +28,12 @@ const sleepService = {
     },
     async getById(sleepId) {
         return apiRequester.get(`${API_PATH.SLEEP_LOG_DETAILS}/${sleepId}`);
+    },
+    async getLastInProgress() {
+        return apiRequester.get(`${API_PATH.SLEEP_LOG_LAST_IN_PROGRESS}`);
+    },
+    async getTodaySleepLog() {
+        return apiRequester.get(`${API_PATH.SLEEP_LOG_TODAY}`);
     },
     async getAll() {
         return apiRequester.get(`${API_PATH.SLEEP_LOGS}`);
