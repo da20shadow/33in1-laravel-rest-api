@@ -13,6 +13,9 @@ const waterService = {
     async getById(waterId) {
         return apiRequester.get(`${API_PATH.WATER_DETAILS}/${waterId}`);
     },
+    async getTodays() {
+        return apiRequester.get(`${API_PATH.WATER_TODAY}`);
+    },
     async getAll() {
         return apiRequester.get(`${API_PATH.WATER}`);
     },
