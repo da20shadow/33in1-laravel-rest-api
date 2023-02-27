@@ -6,7 +6,7 @@ import {
     Register,
     BodyComposition,
     AddBodyComposition,
-    EditBodyComposition, Water, WaterStat, Sleep, Food, Work, Workout
+    EditBodyComposition, Water, WaterStat, Sleep, Food, Work, Workout, NotFound
 } from "./components";
 import {Routes,Route,Navigate} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -52,6 +52,7 @@ function App() {
                 <Route path={'/food'} element={isLogged ?  <Food/> : <Navigate to="/login" replace={true} />} />
                 <Route path={'/work'} element={isLogged ?  <Work/> : <Navigate to="/login" replace={true} />} />
                 <Route path={'/workout'} element={isLogged ?  <Workout/> : <Navigate to="/login" replace={true} />} />
+                <Route path={'/*'} element={<NotFound/> } />
             </Routes>
 
         </>

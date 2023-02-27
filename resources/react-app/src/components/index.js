@@ -12,6 +12,7 @@ export {default as WaterStat} from './pages/water/WaterStat';
 export {default as Food} from './pages/food/Food';
 export {default as Work} from './pages/work/Work';
 export {default as Workout} from './pages/workout/Workout';
+export {default as NotFound} from './pages/NotFound';
 
 //UI
 export {default as Button} from './ui/Button';

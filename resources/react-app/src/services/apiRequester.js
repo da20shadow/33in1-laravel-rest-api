@@ -1,5 +1,7 @@
+//'http://127.0.0.1:8000/api'
+import baseUrl from '../utils/http';
 const apiRequester = {
-    baseUrl: 'http://127.0.0.1:8000/api',
+    baseUrl: baseUrl(),
     async get(path) {
         const response = await fetch(`${this.baseUrl}/${path}`, {
             method: 'GET',
