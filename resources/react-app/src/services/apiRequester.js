@@ -42,11 +42,12 @@ const apiRequester = {
             'Content-Type': 'application/json',
         };
 
-        const token = localStorage.getItem('token');
+        let token = localStorage.getItem('user');
         if (token) {
-            console.log('apiRequester: Setting Token in Header ', token )
+            token = JSON.parse(token);
             headers.Authorization = `Bearer ${token}`;
         }
+        console.log('apiRequest Add Headers: ',headers)
         return headers;
     },
     async handleResponse(response) {
@@ -54,6 +55,9 @@ const apiRequester = {
         if (response.ok) {
             return data;
         } else {
+            if (response.status === 401) {
+                localStorage.clear();
+            }
             throw new Error(data.message || 'Something went wrong');
         }
     },
