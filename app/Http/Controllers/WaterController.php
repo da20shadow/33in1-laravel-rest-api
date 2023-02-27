@@ -154,7 +154,7 @@ class WaterController extends Controller
         }
     }
 
-    public function update(UpdateWaterRequest $request, int $id): JsonResponse
+    public function update(UpdateWaterRequest $request, string $id): JsonResponse
     {
         try {
             $userId = auth()->user()->getAuthIdentifier();
