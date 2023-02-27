@@ -45,42 +45,42 @@ function AddBodyComposition() {
                 <label className={'text-lg mb-1'}>Тегло:</label>
                 <input className={inputStyle}
                        name={'weight'} type="number" step={'0.1'}
-                       placeholder={'76kg'} required/>
+                       placeholder={'76kg'} />
 
                 <label className={'text-lg mb-1'}>Височина:</label>
                 <input className={inputStyle}
                        name={'height'} type="number" step={'0.1'}
-                       placeholder={'76 см'} required/>
+                       placeholder={'76 см'} />
 
                 <label className={'text-lg mb-1'}>Гръден кош:</label>
                 <input className={inputStyle}
                        name={'chest'} type="number" step={'0.1'}
-                       placeholder={'105 см'} required/>
+                       placeholder={'105 см'} />
 
                 <label className={'text-lg mb-1'}>Талия:</label>
                 <input className={inputStyle}
                        name={'waist'} type="number" step={'0.1'}
-                       placeholder={'75 см'} required/>
+                       placeholder={'75 см'} />
 
                 <label className={'text-lg mb-1'}>Ханш:</label>
                 <input className={inputStyle}
                        name={'hips'} type="number" step={'0.1'}
-                       placeholder={'95 см'} required/>
+                       placeholder={'95 см'} />
 
                 <label className={'text-lg mb-1'}>Бедро:</label>
                 <input className={inputStyle}
                        name={'thigh'} type="number" step={'0.1'}
-                       placeholder={'55 см'} required/>
+                       placeholder={'55 см'} />
 
                 <label className={'text-lg mb-1'}>Прасец:</label>
                 <input className={inputStyle}
                        name={'calf'} type="number" step={'0.1'}
-                       placeholder={'35 см'} required/>
+                       placeholder={'35 см'} />
 
                 <label className={'text-lg mb-1'}>Ръка:</label>
                 <input className={inputStyle}
                        name={'arm'} type="number" step={'0.1'}
-                       placeholder={'55 см'} required/>
+                       placeholder={'55 см'} />
 
                 <button className={tailwindClasses.btnFullLg} type={'submit'}>Запази</button>
 
