@@ -6,6 +6,7 @@ use App\Constants\AppMessages\Messages;
 use App\Http\Requests\Water\AddWaterRequest;
 use App\Http\Requests\Water\UpdateWaterRequest;
 use App\Models\Water;
+use App\Utils\AppHelpers;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Database\QueryException;
@@ -16,6 +17,41 @@ use PHPUnit\Exception;
 
 class WaterController extends Controller
 {
+    public function todayTotalMl(): JsonResponse
+    {
+        try {
+            $todayDate = AppHelpers::getCurrentDate('Y-m-d');
+            $userId = auth()->user()->getAuthIdentifier();
+            $waterIntakes = DB::table('waters')
+                ->select(DB::raw('id, DATE_FORMAT(time, "%H:%i") as time, amount'))
+                ->where('user_id', $userId)
+                ->whereRaw("DATE(time) = ?", [$todayDate])
+                ->orderBy('time')
+                ->get();
+
+            $totalWaterIntake = $waterIntakes->sum('amount');
+
+            // Format the individual water intake entries as objects
+            $waterIntakeList = $waterIntakes->map(function($item) {
+                return ['id' => $item->id, 'time' => $item->time, 'amount' => $item->amount];
+            });
+
+            // Combine the total and individual water intake into an associative array
+            $waterIntakeToday = [
+                'totalIntakeWater' => $totalWaterIntake,
+                'waterIntakeList' => $waterIntakeList,
+            ];
+
+            return response()->json($waterIntakeToday);
+
+        } catch (\Exception $exception) {
+            return response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage()
+            ], 400);
+        }
+    }
+
     public function index(): JsonResponse
     {
         //Get Last 30 days water intake logs
@@ -60,7 +96,7 @@ class WaterController extends Controller
             return response()->json([
                 'message' => Messages::DEFAULT_ERROR_MESSAGE,
                 'error' => $exception->getMessage()
-            ],400);
+            ], 400);
         }
     }
 
@@ -69,7 +105,7 @@ class WaterController extends Controller
         try {
             $validatedData = $request->validated();
             $userId = auth()->user()->getAuthIdentifier();
-            $validatedData['user_id']= $userId;
+            $validatedData['user_id'] = $userId;
 
             //Set the timezone:
             //TODO: make the time zone dynamic or save user country in registration or when want to use the health part of the app
@@ -81,7 +117,11 @@ class WaterController extends Controller
 
             $result = DB::table('waters')->insert([$validatedData]);
             if ($result) {
-                return response()->json(['message' => Messages::ADD_WATER_LOG_SUCCESS], 201);
+                return response()->json([
+                    'message' => Messages::ADD_WATER_LOG_SUCCESS,
+                    'amount' => $validatedData['amount'],
+                    'time' => $datetime->format('H:i'),
+                ], 201);
             }
             return response()->json(['message' => Messages::ADD_WATER_LOG_FAILURE], 400);
 
@@ -113,30 +153,31 @@ class WaterController extends Controller
         }
     }
 
-    public function update(UpdateWaterRequest $request, string $id): JsonResponse
+    public function update(UpdateWaterRequest $request, int $id): JsonResponse
     {
         try {
-        $userId = auth()->user()->getAuthIdentifier();
-        $validatedData = $request->validated();
-        //Check if exercise exist
-        if (!$this->waterLogExistById($id,$userId)) {
+            $userId = auth()->user()->getAuthIdentifier();
+            $validatedData = $request->validated();
+            //Check if exercise exist
+            if (!$this->waterLogExistById($id, $userId)) {
+                return response()->json([
+                    'message' => Messages::WATER_LOGS_NOT_EXIST,
+                ], 400);
+            }
+            $result = DB::table('waters')
+                ->where(['id' => $id, 'user_id' => $userId])
+                ->update($validatedData);
+            if ($result) {
+                return response()->json(['message' => Messages::UPDATE_WATER_LOG_SUCCESS]);
+            }
+            return response()->json(['message' => Messages::UPDATE_WATER_LOG_FAILURE], 400);
+
+        } catch (\Exception $exception) {
             return response()->json([
-                'message' => Messages::WATER_LOGS_NOT_EXIST,
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage()
             ], 400);
         }
-        $result = DB::table('waters')
-            ->where(['id' => $id,'user_id' => $userId])
-            ->update($validatedData);
-        if ($result) {
-            return response()->json(['message' => Messages::UPDATE_WATER_LOG_SUCCESS]);
-        }
-        return response()->json(['message' => Messages::UPDATE_WATER_LOG_FAILURE], 400);
-    } catch (\Exception $exception) {
-        return response()->json([
-            'message' => Messages::DEFAULT_ERROR_MESSAGE,
-            'error' => $exception->getMessage()
-        ], 400);
-    }
     }
 
     public function destroy(string $id): JsonResponse
@@ -148,20 +189,22 @@ class WaterController extends Controller
             if ($result) {
                 return response()->json(['message' => Messages::DELETE_WATER_LOG_SUCCESS]);
             }
-            return response()->json(['message' => Messages::DELETE_WATER_LOG_FAILURE],400);
-        }catch (QueryException $exception){
+            return response()->json(['message' => Messages::DELETE_WATER_LOG_FAILURE], 400);
+        } catch (QueryException $exception) {
             return response()->json([
                 'message' => Messages::DEFAULT_ERROR_MESSAGE,
                 'error' => $exception->getMessage()
-            ],400);
+            ], 400);
         }
     }
 
     private function waterLogExistById(int $id, int $userId): bool
     {
         try {
-            $waterLog = Water::where(['id' => $id,'user_id' => $userId])->first();
-            if ($waterLog){ return true; }
+            $waterLog = Water::where(['id' => $id, 'user_id' => $userId])->first();
+            if ($waterLog) {
+                return true;
+            }
         } catch (QueryException $exception) {
             response()->json([
                 'message' => Messages::DEFAULT_ERROR_MESSAGE,
