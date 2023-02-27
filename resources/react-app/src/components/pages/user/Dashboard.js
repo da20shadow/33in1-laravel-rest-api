@@ -6,9 +6,7 @@ import {authService} from "../../../services";
 function Dashboard() {
     const redirect = useNavigate();
     // useEffect(() => {
-    //     if (authService.isLogged()) {
-    //         redirect('/login');
-    //     }
+    //
     // },[])
 
     return (
@@ -17,9 +15,9 @@ function Dashboard() {
                 <h1 className={'text-center font-semibold text-2xl'}>Здравей 😊</h1>
 
                 <div className="flex flex-wrap justify-center gap-4 p-5">
-                    <Link className={tailwindClasses.btnFullLg} to={'/water'}>Вода 🥛</Link>
-                    <Link className={tailwindClasses.btnFullLg} to={'/food'}>Храна 🍽️</Link>
                     <Link className={tailwindClasses.btnFullLg} to={'/sleep'}>Сън 😴</Link>
+                    <Link className={tailwindClasses.btnFullLg} to={'/water/add'}>Вода 🥛</Link>
+                    <Link className={tailwindClasses.btnFullLg} to={'/food'}>Храна 🍽️</Link>
                     <Link className={tailwindClasses.btnFullLg} to={'/work'}>Работа 🧑💼</Link>
                     <Link className={tailwindClasses.btnFullLg} to={'/workout'}>Тренировка 💪</Link>
                     <Link className={tailwindClasses.btnFullLg} to={'/body-composition'}>Моето Тяло 🧍</Link>
