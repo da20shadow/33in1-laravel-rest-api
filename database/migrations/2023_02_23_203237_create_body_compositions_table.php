@@ -18,12 +18,14 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->float('weight')->nullable();
             $table->float('height')->nullable();
+            $table->float('neck')->nullable();
+            $table->float('shoulders')->nullable();
             $table->float('chest')->nullable();
             $table->float('waist')->nullable();
             $table->float('arm')->nullable();
             $table->float('hips')->nullable();
-            $table->float('upper_thigh')->nullable();
-            $table->float('calves')->nullable();
+            $table->float('thigh')->nullable();
+            $table->float('calf')->nullable();
             $table->foreignIdFor(User::class)->nullable(false)->unique();
         });
     }

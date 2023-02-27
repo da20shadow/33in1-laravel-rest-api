@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::patch('waters/update/{id}',[WaterController::class,'update']);
     Route::delete('waters/delete/{id}',[WaterController::class,'destroy']);
     Route::get('waters/details/{id}',[WaterController::class,'show']);
+    Route::get('waters/today',[WaterController::class,'todayTotalMl']);
     Route::get('waters',[WaterController::class,'index']);
 
     /** ----------Food---------- */
@@ -88,6 +89,8 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::patch('sleep-logs/update/{id}', [SleepLogController::class, 'update']);
     Route::delete('sleep-logs/delete/{id}', [SleepLogController::class, 'destroy']);
     Route::get('sleep-logs/details/{id}', [SleepLogController::class, 'show']);
+    Route::get('sleep-logs/last-in-progress', [SleepLogController::class, 'getLastSleepLogWithNullEndTime']);
+    Route::get('sleep-logs/today', [SleepLogController::class, 'getTodaySleepLog']);
     Route::get('sleep-logs/', [SleepLogController::class, 'index']);
 
     /** ----------Activity---------- */
