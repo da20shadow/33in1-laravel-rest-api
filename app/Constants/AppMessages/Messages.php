@@ -6,41 +6,41 @@ class Messages
 {
 
     //User
-    const LOGIN_SUCCESS = 'Successfully logged in.';
-    const LOGOUT_SUCCESS = 'Successfully logged out.';
-    const REGISTER_SUCCESS = 'Successfully registered.';
-    const UPDATE_PROFILE_SUCCESS = 'Profile updated successfully.';
-    const DELETED_PROFILE_SUCCESS = 'Successfully Deleted Account.';
+    const LOGIN_SUCCESS = 'Влязохте усшено.';
+    const LOGOUT_SUCCESS = 'Излязохте успешно.';
+    const REGISTER_SUCCESS = 'Успешна регистрация.';
+    const UPDATE_PROFILE_SUCCESS = 'Успешно редактирахте профила си.';
+    const DELETED_PROFILE_SUCCESS = 'Успешно изтрихте профила си.';
 
-    const BAD_CREDENTIALS = 'Invalid Email or Password.';
-    const EMAIL_EXIST = 'User with this email already registered.';
-    const USER_NOT_FOUND = 'User not found.';
+    const BAD_CREDENTIALS = 'Грешна парола или имейл.';
+    const EMAIL_EXIST = 'Потребител с този имейл вече е регистриран.';
+    const USER_NOT_FOUND = 'Потребителят не е намерен.';
 
     //Body Composition
-    const ADDED_BODY_COMPOSITION_SUCCESS = 'Successfully added body composition';
-    const UPDATED_BODY_COMPOSITION_SUCCESS = 'Successfully updated body composition';
-    const BODY_COMPOSITION_EXIST = 'Body composition already added!';
-    const NO_BODY_COMPOSITION = 'Body composition not added yet!';
+    const ADDED_BODY_COMPOSITION_SUCCESS = 'Успешно добавихте данни за тялото си.';
+    const UPDATED_BODY_COMPOSITION_SUCCESS = 'Успешно редактирахте данните за тялото си.';
+    const BODY_COMPOSITION_EXIST = 'Вече сте добавили данни за тялото си.!';
+    const NO_BODY_COMPOSITION = 'Не сте добавили данни за тялото!';
 
     //Exercises
-    const EXERCISE_ADDED_SUCCESS = 'Successfully added new exercise.';
-    const EXERCISE_ADDED_FAILURE = 'Unable to added new exercise.';
-    const EXERCISE_UPDATED_SUCCESS = 'Successfully updated exercise.';
-    const EXERCISE_UPDATED_FAILURE = 'Unable to updated exercise.';
-    const EXERCISE_EXIST = 'Exercise with such name already added.';
-    const EXERCISE_NOT_EXIST = 'Exercise not found.';
-    const NO_EXERCISES = 'There are no exercises yet.';
-    const DELETED_EXERCISE_SUCCESS = 'Successfully Deleted Exercise.';
-    const DELETED_EXERCISE_FAILURE = 'Unable to Deleted Exercise.';
+    const EXERCISE_ADDED_SUCCESS = 'Успешно добавено упражнение.';
+    const EXERCISE_ADDED_FAILURE = 'Добавянето на упражнение е неуспешно.';
+    const EXERCISE_UPDATED_SUCCESS = 'Упражнението е редактирано успешно.';
+    const EXERCISE_UPDATED_FAILURE = 'Редактирането на упражнението беше неуспешно.';
+    const EXERCISE_EXIST = 'Упражнение с това име вече е добавено.';
+    const EXERCISE_NOT_EXIST = 'Упражнението не е намерено.';
+    const NO_EXERCISES = 'Все още няма упражнения.';
+    const DELETED_EXERCISE_SUCCESS = 'Успешно изтрихте упражнение.';
+    const DELETED_EXERCISE_FAILURE = 'Опита за изтриване на упражнението е неуспешен.';
 
     //Workout Logs
-    const ADD_WORKOUT_LOG_SUCCESS = 'Successfully added workout log.';
-    const ADD_WORKOUT_LOG_FAILURE = 'Unable to added workout log.';
-    const UPDATE_WORKOUT_LOG_SUCCESS = 'Successfully updated workout log.';
-    const UPDATE_WORKOUT_LOG_FAILURE = 'Unable to update workout log.';
-    const DELETED_WORKOUT_LOG_SUCCESS = 'Successfully Deleted Workout Log.';
-    const DELETED_WORKOUT_LOG_FAILURE = 'Unable to Deleted Workout Log.';
-    const WORKOUT_LOG_NOT_EXIST = 'Workout Log not exist.';
+    const ADD_WORKOUT_LOG_SUCCESS = 'Успешно добваихте тренировка.';
+    const ADD_WORKOUT_LOG_FAILURE = 'Добавнето на тренировка беше неуспешно.';
+    const UPDATE_WORKOUT_LOG_SUCCESS = 'Усепешно редактирахте тренировка.';
+    const UPDATE_WORKOUT_LOG_FAILURE = 'Редактирането на тренировката е неуспешно.';
+    const DELETED_WORKOUT_LOG_SUCCESS = 'Успешно изтрита тренировка.';
+    const DELETED_WORKOUT_LOG_FAILURE = 'Опита да изтриете тренировката беше неуспешен.';
+    const WORKOUT_LOG_NOT_EXIST = 'Тренировката не съществува.';
 
     //Homework
     const NO_HOMEWORK = 'No homework added yet.';
@@ -63,13 +63,13 @@ class Messages
     const DELETE_HOMEWORK_LOG_FAILURE = 'Unable to delete homework log!';
 
     //Water
-    const WATER_LOGS_NOT_EXIST = 'Water logs not exist for this period.';
-    const ADD_WATER_LOG_SUCCESS = 'Water log added successfully.';
-    const ADD_WATER_LOG_FAILURE = 'Unable to add water.';
-    const UPDATE_WATER_LOG_SUCCESS = 'Water log updated successfully.';
-    const UPDATE_WATER_LOG_FAILURE = 'Unable to update water log.';
-    const DELETE_WATER_LOG_SUCCESS = 'Water log deleted successfully.';
-    const DELETE_WATER_LOG_FAILURE = 'Unable to delete water log.';
+    const WATER_LOGS_NOT_EXIST = 'Няма данни за водата в този период от време.';
+    const ADD_WATER_LOG_SUCCESS = 'Успешно добваихте вода.';
+    const ADD_WATER_LOG_FAILURE = 'Опита да добавите вода беше неуспешен.';
+    const UPDATE_WATER_LOG_SUCCESS = 'Успешно редактирахте прием на вода.';
+    const UPDATE_WATER_LOG_FAILURE = 'Опита да редактирате прием на вода е неуспешен.';
+    const DELETE_WATER_LOG_SUCCESS = 'Успешно изтрихте прием на вода.';
+    const DELETE_WATER_LOG_FAILURE = 'Опита да изтриете прием на вода е неуспешен.';
 
     //Food
     const FOOD_EXIST = 'Food with this name already added!';
@@ -92,19 +92,19 @@ class Messages
     const DELETE_MEAL_LOG_FAILURE = 'Unable to delete food.';
 
     //Sleep Log
-    const SLEEP_LOG_EXIST = 'Sleep log already added!';
-    const SLEEP_LOG_NOT_FOUND = 'Not Found sleep log!';
-    const ADD_SLEEP_LOG_SUCCESS = 'Successfully added sleep log.';
-    const ADD_SLEEP_LOG_FAILURE = 'Unable to add sleep log.';
-    const UPDATE_SLEEP_LOG_SUCCESS = 'Successfully updated sleep log.';
-    const UPDATE_SLEEP_LOG_FAILURE = 'Unable to update sleep log.';
-    const DELETE_SLEEP_LOG_SUCCESS = 'Successfully deleted sleep log.';
-    const DELETE_SLEEP_LOG_FAILURE = 'Unable to delete sleep log.';
-    const SLEEP_LOG_STARTED_SUCCESS = 'Sleep session started successfully.';
-    const LAST_SLEEP_LOG_NOT_FOUND = 'There is no session in progress.';
+    const SLEEP_LOG_EXIST = 'Запис за съня е вече добавен!';
+    const SLEEP_LOG_NOT_FOUND = 'Записа за съня не е намерен!';
+    const ADD_SLEEP_LOG_SUCCESS = 'Успешно добавихте запис за сън.';
+    const ADD_SLEEP_LOG_FAILURE = 'Добавянето на запис за сън е неуспешно.';
+    const UPDATE_SLEEP_LOG_SUCCESS = 'Успешно редактирахте запис за сън.';
+    const UPDATE_SLEEP_LOG_FAILURE = 'Опита да редактирате запис за сън е неуспешен.';
+    const DELETE_SLEEP_LOG_SUCCESS = 'Успешно изтрихте запис за сън.';
+    const DELETE_SLEEP_LOG_FAILURE = 'Опита да изтриете запис за сън е неуспешен.';
+    const SLEEP_LOG_STARTED_SUCCESS = 'Успешно тартирахте сън zzZZ.';
+    const LAST_SLEEP_LOG_NOT_FOUND = 'Няма сън който да е в прогресс.';
 
     //DEFAULT Messages
-    const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
+    const DEFAULT_ERROR_MESSAGE = 'Нещо се обърка. Моля опитайте пак.';
     const NO_RIGHTS = "You have no rights to complete this operation!";
 
 }

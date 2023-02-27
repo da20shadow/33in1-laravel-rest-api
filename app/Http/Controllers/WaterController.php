@@ -115,12 +115,13 @@ class WaterController extends Controller
 
             $validatedData['time'] = $current_datetime;
 
-            $result = DB::table('waters')->insert([$validatedData]);
-            if ($result) {
+            $resultId = DB::table('waters')->insertGetId([$validatedData]);
+            if ($resultId) {
+                $addedWater = DB::table('waters')
+                    ->where(['id' => $resultId])->first();
                 return response()->json([
                     'message' => Messages::ADD_WATER_LOG_SUCCESS,
-                    'amount' => $validatedData['amount'],
-                    'time' => $datetime->format('H:i'),
+                    'addedWater' => $addedWater
                 ], 201);
             }
             return response()->json(['message' => Messages::ADD_WATER_LOG_FAILURE], 400);

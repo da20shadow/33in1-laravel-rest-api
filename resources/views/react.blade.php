@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="{{ asset('react-app/logo192.png') }}"/>
     <link rel="manifest" href="{{ asset('react-app/manifest.json') }}"/>
     <title>33 in one</title>
-    <script defer="defer" src="{{ asset('react-app/static/js/main.5f083430.js') }}"></script>
+    <script defer="defer" src="{{ asset('react-app/static/js/main.d2aea5e1.js') }}"></script>
     <link href="{{ asset('react-app/static/css/main.84040992.css') }}" rel="stylesheet">
 </head>
 <body>

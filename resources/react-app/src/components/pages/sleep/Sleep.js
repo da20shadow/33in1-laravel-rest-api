@@ -1,9 +1,11 @@
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 import tailwindClasses from "../../../constants/tailwindClasses";
 import {sleepService} from "../../../services";
-import {useEffect, useState} from "react";
 import {useStateContext} from "../../../context/ContextProvider";
 
 function Sleep() {
+    const redirect = useNavigate();
     const {logoutUser} = useStateContext();
     const [errors, setErrors] = useState('');
     const [lastSleepLog, setLastSleepLog] = useState();
@@ -48,6 +50,7 @@ function Sleep() {
         } else {
             sleepService.start().then(r => {
                 console.log(r);
+                redirect('/sleep');
             }).catch(err => {
                 console.log(err);
                 setErrors(err.message);
@@ -167,7 +170,7 @@ function Sleep() {
             greeting = (
                 <>
                     <h1 className={'text-center text-gray-300 font-semibold text-2xl border-b mb-5'}>{time}</h1>
-                    <h1 className={'text-center text-gray-300 font-semibold text-xl'}>Лека нощ 😴</h1>
+                    <h1 className={'text-center text-gray-300 font-semibold text-xl'}>Време е за лягане. Лека нощ 😴</h1>
                 </>
             );
         }
@@ -237,7 +240,6 @@ function Sleep() {
         <>
             {errors ?
                 <p className={'w-11/12 mx-auto py-2 bg-rose-50 text-center font-bold text-rose-900'}>{errors}</p> : ''}
-
             <main className={'bg-[#404955] w-11/12 mx-auto my-5 p-6 border rounded shadow'}>
                 {/*<h1 className={'text-center font-semibold text-2xl'}>Моят сън 😴</h1>*/}
                 {getGreeting()}
