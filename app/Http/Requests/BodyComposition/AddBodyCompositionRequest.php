@@ -16,16 +16,16 @@ class AddBodyCompositionRequest extends FormRequest
         return [
             'birth_date' => ['date', 'sometimes'],
             'gender' => ['string', 'sometimes'],
-            'neck' => ['numeric', 'sometimes'],
-            'shoulders' => ['numeric', 'sometimes'],
-            'weight' => ['numeric', 'sometimes'],
-            'height' => ['numeric', 'sometimes'],
-            'chest' => ['numeric', 'sometimes'],
-            'waist' => ['numeric', 'sometimes'],
-            'hips' => ['numeric', 'sometimes'],
-            'thigh' => ['numeric', 'sometimes'],
-            'calf' => ['numeric', 'sometimes'],
-            'arm' => ['numeric', 'sometimes'],
+            'neck' => ['numeric', 'sometimes','nullable'],
+            'shoulders' => ['numeric', 'sometimes','nullable'],
+            'weight' => ['numeric', 'sometimes','nullable'],
+            'height' => ['numeric', 'sometimes','nullable'],
+            'chest' => ['numeric', 'sometimes','nullable'],
+            'waist' => ['numeric', 'sometimes','nullable'],
+            'hips' => ['numeric', 'sometimes','nullable'],
+            'thigh' => ['numeric', 'sometimes','nullable'],
+            'calf' => ['numeric', 'sometimes','nullable'],
+            'arm' => ['numeric', 'sometimes','nullable'],
         ];
     }
 
