@@ -10,11 +10,6 @@ const authService = {
     },
     async logout(userData) {
         return apiRequester.post(`${API_PATH.LOGOUT}`, userData);
-    },
-    isLogged(){
-        const token = localStorage.getItem('token');
-        return !!token;
-
     }
 };
 
