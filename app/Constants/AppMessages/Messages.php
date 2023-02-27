@@ -100,7 +100,8 @@ class Messages
     const UPDATE_SLEEP_LOG_FAILURE = 'Unable to update sleep log.';
     const DELETE_SLEEP_LOG_SUCCESS = 'Successfully deleted sleep log.';
     const DELETE_SLEEP_LOG_FAILURE = 'Unable to delete sleep log.';
-    const SLEEP_LOG_STARTED_SUCCESS = 'Sleep session started successfully';
+    const SLEEP_LOG_STARTED_SUCCESS = 'Sleep session started successfully.';
+    const LAST_SLEEP_LOG_NOT_FOUND = 'There is no session in progress.';
 
     //DEFAULT Messages
     const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
