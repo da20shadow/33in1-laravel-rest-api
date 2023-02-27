@@ -14,11 +14,13 @@ class BodyComposition extends Model
         'gender',
         'weight',
         'height',
+        'neck',
+        'shoulders',
         'chest',
         'waist',
         'arm',
         'hips',
-        'upper_thigh',
-        'calves',
+        'thigh',
+        'calf',
     ];
 }
