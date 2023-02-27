@@ -69,12 +69,12 @@ function AddBodyComposition() {
 
                 <label className={'text-lg mb-1'}>Бедро:</label>
                 <input className={inputStyle}
-                       name={'upper_thigh'} type="number" step={'0.1'}
+                       name={'thigh'} type="number" step={'0.1'}
                        placeholder={'55 см'} required/>
 
                 <label className={'text-lg mb-1'}>Прасец:</label>
                 <input className={inputStyle}
-                       name={'calves'} type="number" step={'0.1'}
+                       name={'calf'} type="number" step={'0.1'}
                        placeholder={'35 см'} required/>
 
                 <label className={'text-lg mb-1'}>Ръка:</label>
