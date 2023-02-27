@@ -22,8 +22,9 @@ function Sleep() {
             });
         //Get the last sleep session that is still in progress.
         sleepService.getLastInProgress().then(r => {
+            console.log('Get sleepService.getLastInProgress() r', r)
             if (r.sleepLog) {
-                setLastSleepLog(r);
+                setLastSleepLog(r.sleepLog);
             }
         }).catch(err => {
             console.log('Error During Getting Last Sleep In Progress ', err);
@@ -186,25 +187,25 @@ function Sleep() {
 
         switch (dayName) {
             case 'Sun':
-                dayName = 'Нед';
+                dayName = 'Нед.';
                 break;
             case 'Mon':
-                dayName = 'Пон';
+                dayName = 'Пон.';
                 break;
             case 'Tue':
-                dayName = 'Вт';
+                dayName = 'Вт.';
                 break;
             case 'Wed':
-                dayName = 'Ср';
+                dayName = 'Ср.';
                 break;
             case 'Thu':
-                dayName = 'Чет';
+                dayName = 'Чет.';
                 break;
             case 'Fri':
-                dayName = 'Пет';
+                dayName = 'Пет.';
                 break;
             case 'Sat':
-                dayName = 'Съб';
+                dayName = 'Съб.';
                 break;
             default:
                 dayName = '';
@@ -218,7 +219,6 @@ function Sleep() {
         // Format the time as "HH:MM"
         const time = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 
-        console.log(`${dayName}. - ${time} часа.`)
         return `${dayName} - ${time}`;
         // return { dayName, time };
     }
@@ -253,9 +253,11 @@ function Sleep() {
                                         : todaySleepLog
                                             ? (
                                                 <>
-                                                    <p>Днеска спахте: {durationBetweenDateTimes(todaySleepLog.sleep_start_time, todaySleepLog.sleep_end_time)}</p>
+                                                    <p>Днеска
+                                                        спахте: {durationBetweenDateTimes(todaySleepLog.sleep_start_time, todaySleepLog.sleep_end_time)}</p>
                                                     <form onSubmit={startNapSession} method={'POST'}>
-                                                        <p className="text-center">Котешка дрямква е допълнителен сън след основния.
+                                                        <p className="text-center">Котешка дрямква е допълнителен сън след
+                                                            основния.
                                                             За да го стартираш просто натисни бутона по-долу.</p>
                                                         <p className={'text-center'}>👇</p>
                                                         <button className={tailwindClasses.btnFullLg}
@@ -267,7 +269,8 @@ function Sleep() {
                                             : isTimeBetween5And18()
                                                 ? (
                                                     <form onSubmit={startNapSession} method={'POST'}>
-                                                        <p className="text-center text-gray-300">Котешка дрямква е допълнителен сън след основния.
+                                                        <p className="text-center text-gray-300">Котешка дрямква е
+                                                            допълнителен сън след основния.
                                                             За да го стартираш просто натисни бутона по-долу.</p>
                                                         <p className={'text-center mb-3'}>👇</p>
                                                         <button className={tailwindClasses.btnFullLg}
@@ -287,12 +290,15 @@ function Sleep() {
                         )
                         : (
                             <>
-                                <p>Сънят ви е още в прогрес. 😴</p>
-                                <p>Легнохте си в {getDayAndTime(lastSleepLog?.sleep_start_time)}</p>
-                                <p>Спахте {durationBetweenDateTimes(lastSleepLog?.sleep_start_time)}</p>
-                                <form onSubmit={stopSleepSession} method={'POST'}>
-                                    <button className={tailwindClasses.btnFullLg} type={'submit'}>Събудих се 🥱</button>
-                                </form>
+                                <div>
+                                    <p className={'text-center'}>Сънят ви е още в прогрес. 😴</p>
+                                    <p className={'text-center'}>Легнохте си в {getDayAndTime(lastSleepLog?.sleep_start_time)}</p>
+                                    <p className={'text-center'}>Спахте {durationBetweenDateTimes(lastSleepLog?.sleep_start_time)}</p>
+
+                                    <form className={'my-5'} onSubmit={stopSleepSession} method={'POST'}>
+                                        <button className={tailwindClasses.btnFullLg} type={'submit'}>Събудих се 🥱</button>
+                                    </form>
+                                </div>
                             </>
                         )
                     }
