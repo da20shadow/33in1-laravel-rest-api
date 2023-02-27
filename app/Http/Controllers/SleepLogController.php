@@ -27,7 +27,7 @@ class SleepLogController extends Controller
             $userId = auth()->user()->getAuthIdentifier(); // Get the user ID from the authenticated user
             $days = $request->input('days', '7'); //Get the number of days from the query parameter, defaulting to 7
 
-            var_dump($days);
+            if ($days < 1) { $days = 1; }
 
             //TODO: Add dynamic timezone
             (new Carbon)->setTimezone('Europe/Sofia');
@@ -136,11 +136,19 @@ class SleepLogController extends Controller
             $userId = auth()->user()->getAuthIdentifier();
             //TODO: make the timezone dynamic or get the Country from user
             $today = AppHelpers::getCurrentDate('Y-m-d', 'Europe/Sofia');
-
             //Check if there is already added log for today
             $existing_sleep = SleepLog::where('user_id', $userId)
                 ->whereRaw("DATE(date) = ?", [$today])->first();
 
+            if ($existing_sleep && $existing_sleep->sleep_end_time == null) {
+                $message = 'There is already a sleep session in progress.';
+                return response()->json(['message' => $message,'sleep_log' => $existing_sleep,], 409);
+            }
+
+            $yesterday = date_create($today)->modify('-1 days')->format('Y-m-d');
+            //Check if there is already added log for yesterday
+            $existing_sleep = SleepLog::where('user_id', $userId)
+                ->whereRaw("DATE(date) = ?", [$yesterday])->first();
             if ($existing_sleep && $existing_sleep->sleep_end_time == null) {
                 $message = 'There is already a sleep session in progress.';
                 return response()->json(['message' => $message,'sleep_log' => $existing_sleep,], 409);
@@ -169,10 +177,8 @@ class SleepLogController extends Controller
     public function stopSleep(): JsonResponse
     {
         try {
-            $user_id = auth()->user()->getAuthIdentifier();
-
             //Checks only for Today and Yesterday dates!
-            $existing_sleep = $this->getLastSleepLog($user_id);
+            $existing_sleep = $this->getLastSleepLog();
 
             if (!$existing_sleep) {
                 return response()->json([
@@ -184,8 +190,10 @@ class SleepLogController extends Controller
                 'sleep_end_time' => AppHelpers::getCurrentDate()
             ];
 
+            $userId = auth()->user()->getAuthIdentifier();
             DB::table('sleep_logs')
                 ->where('id',$existing_sleep->id)
+                ->where('user_id',$userId)
                 ->update($stoppedSleep);
 
             $stoppedLog = DB::table('sleep_logs')->where('id',$existing_sleep->id)->first();
@@ -327,6 +335,7 @@ class SleepLogController extends Controller
         }
     }
 
+
     //Check if there is not stopped log for more than 20 hours
     public function checkAndStopLastStartedSleepLogIfTooLong($userId = null): ?JsonResponse
     {
@@ -364,8 +373,7 @@ class SleepLogController extends Controller
                 }
             }
 
-            // Return null if there are no unfinished sleep logs
-            return null;
+            return response()->json(['message' => 'No sleep in progress']);
 
         } catch (Exception $exception) {
             return response()->json([
@@ -375,8 +383,63 @@ class SleepLogController extends Controller
         }
     }
 
-    public function getLastSleepLog($userId)
+    public function getLastSleepLogWithNullEndTime(): JsonResponse
     {
+        try {
+            $userId = auth()->user()->getAuthIdentifier();
+
+            $lastSleepLog = SleepLog::where([
+                'user_id' => $userId,
+                'sleep_end_time' => NULL,
+            ])->latest('date')->first();
+
+            if (!$lastSleepLog) {
+                return response()->json([
+                    'message' => Messages::LAST_SLEEP_LOG_NOT_FOUND,
+                ]);
+            }
+
+            return response()->json(['sleepLog' => $lastSleepLog]);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage()
+            ], 400);
+        }
+    }
+
+    public function getTodaySleepLog(): JsonResponse
+    {
+        try {
+            $userId = auth()->user()->getAuthIdentifier();
+            $today = Carbon::now('Europe/Sofia')->format('Y-m-d');
+
+            $sleepLog = SleepLog::where([
+                ['user_id', '=', $userId],
+                ['sleep_start_time', '>=', $today],
+            ])->whereDate('date', '=', $today)->first();
+
+            if (!$sleepLog) {
+                return response()->json([
+                    'message' => Messages::SLEEP_LOG_NOT_FOUND,
+                ]);
+            }
+
+            return response()->json(['sleepLog' => $sleepLog]);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => Messages::DEFAULT_ERROR_MESSAGE,
+                'error' => $exception->getMessage(),
+            ], 400);
+        }
+    }
+
+
+    public function getLastSleepLog()
+    {
+        $userId = auth()->user()->getAuthIdentifier();
         //TODO: make timezone dynamic
         // Set the timezone to 'Europe/London'
         (new Carbon)->setTimezone('Europe/Sofia');
