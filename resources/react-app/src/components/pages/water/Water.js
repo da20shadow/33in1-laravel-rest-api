@@ -34,9 +34,14 @@ function Water(){
         const formData = new FormData(e.currentTarget);
         const water = Object.fromEntries(formData);
         waterService.add(water).then(r => {
-            console.log(r.addedWater)
+            const dateTime = new Date(r.addedWater.time);
+            const hours = dateTime.getHours().toString().padStart(2, '0');
+            const minutes = dateTime.getMinutes().toString().padStart(2, '0');
+            const time = `${hours}:${minutes}`;
+            const theWater = {time, amount: r.addedWater.amount};
+
             setTodayWater(Number(todayWater) + Number(r.addedWater.amount));
-            setWaterIntakeList(oldList => [...oldList,r.addedWater]);
+            setWaterIntakeList(oldList => [...oldList,theWater]);
             setMessage(r.message);
             setTimeout(() => {
                 setMessage('');

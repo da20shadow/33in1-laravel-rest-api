@@ -115,7 +115,7 @@ class WaterController extends Controller
 
             $validatedData['time'] = $current_datetime;
 
-            $resultId = DB::table('waters')->insertGetId([$validatedData]);
+            $resultId = DB::table('waters')->insertGetId($validatedData);
             if ($resultId) {
                 $addedWater = DB::table('waters')
                     ->where(['id' => $resultId])->first();
