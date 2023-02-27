@@ -50,7 +50,7 @@ function Sleep() {
         } else {
             sleepService.start().then(r => {
                 console.log(r);
-                redirect('/sleep');
+                window.location.reload(false);
             }).catch(err => {
                 console.log(err);
                 setErrors(err.message);
