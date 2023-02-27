@@ -2,31 +2,29 @@ import {Link, useNavigate} from "react-router-dom";
 import tailwindClasses from "../../../constants/tailwindClasses";
 import {useEffect, useState} from "react";
 import {authService, bodyCompositionService} from "../../../services";
+import {useStateContext} from "../../../context/ContextProvider";
 
-function BodyComposition(){
+function BodyComposition() {
     const redirect = useNavigate();
+    const {logoutUser} = useStateContext();
+    const [body, setBody] = useState({loading: true});
 
-    const [body,setBody] = useState({loading:true});
+    useEffect(() => {
+        bodyCompositionService.get().then(r => {
+            if (r.message) {
+                setBody(undefined);
+            } else {
+                setBody(r);
+            }
+        }).catch(err => {
+            console.log(err)
+            if (err.message === 'Unauthenticated') {
+                logoutUser();
+            }
+        })
 
-    useEffect(()=>{
-        if (!authService.isLogged()) {
-            // redirect('/login');
-            console.log(authService.isLogged())
-        }else {
-            bodyCompositionService.get().then(r => {
-                if (r.message) {
-                    console.log(r)
-                    setBody(undefined);
-                }else {
-                    console.log(r)
-                    setBody(r);
-                }
-            }).catch(err => {
-                console.log(err)
-            })
-        }
 
-    },[])
+    }, [])
 
     const noData = (
         <>
@@ -41,19 +39,35 @@ function BodyComposition(){
     );
 
     const getGender = (gender) => {
-        if (!gender){
+        if (!gender) {
             return 'Зареждане..';
-        }else if (gender === 'male') {
+        } else if (gender === 'male') {
             return 'Мъж'
-        }else {
+        } else {
             return 'Жена';
         }
     }
 
+    function getAge(birthDateStr) {
+        // Convert the birth date string to a Date object
+        const birthDate = new Date(birthDateStr);
+
+        // Calculate the difference between the birth date and current date
+        const ageDiffMs = Date.now() - birthDate.getTime();
+
+        // Convert the age difference to years
+        const ageDate = new Date(ageDiffMs);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+
+
     const bodyCompositionData = (
         <>
             <h1 className={'mb-5 text-center font-semibold text-2xl border-b'}>Моето Тяло 🧍</h1>
-            <p className={'text-lg'}>Пол: <span className={'font-semibold'}>{body?.gender ? getGender(body.gender) : 'Зареждане..'}</span></p>
+            <p className={'text-lg'}>Пол: <span
+                className={'font-semibold'}>{body?.gender ? getGender(body.gender) : 'Зареждане..'}</span></p>
+            <p className={'text-lg'}>Години: <span
+                className={'font-semibold'}>{body?.birth_date ? getAge(body.birth_date) : 'Зареждане..'}</span></p>
             <p className={'text-lg'}>Тегло: <span className={'font-semibold'}>{body?.weight} кг</span></p>
             <p className={'text-lg'}>Височина: <span className={'font-semibold'}>{body?.height} см</span></p>
             <p className={'text-lg'}>Гръден кош: <span className={'font-semibold'}>{body?.chest} см</span></p>
