@@ -1,15 +1,17 @@
 import {Link, NavLink,useNavigate} from "react-router-dom";
 import tailwindClasses from "../../constants/tailwindClasses";
 import {authService} from "../../services";
+import {useStateContext} from "../../context/ContextProvider";
 
-function Header({isLogged}) {
+function Header() {
 
+    const {isLogged,logoutUser} = useStateContext();
 
     const redirect = useNavigate();
     const logout = (e) => {
         e.preventDefault();
         authService.logout().then(r => {
-            localStorage.clear();
+            logoutUser();
             setTimeout(()=>{
                 redirect('/login');
             },200)
