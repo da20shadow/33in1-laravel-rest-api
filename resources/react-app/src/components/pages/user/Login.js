@@ -2,8 +2,10 @@ import {useNavigate} from "react-router-dom";
 import {authService} from "../../../services";
 import {useState} from "react";
 import tailwindClasses from "../../../constants/tailwindClasses";
+import {useStateContext} from "../../../context/ContextProvider";
 
 function Login() {
+    const {loginUser} = useStateContext();
     const [response,setResponse] = useState('');
     const inputStyle = 'w-full p-2 mb-3 rounded bg-[#c6c6c6]';
     const redirect = useNavigate();
@@ -14,7 +16,7 @@ function Login() {
         authService.login({email,password})
             .then(r => {
                 console.log(r)
-                localStorage.setItem('token',r.token);
+                loginUser(r.token)
                 setResponse(r.message);
                 setTimeout(()=>{
                     redirect('/dashboard');
