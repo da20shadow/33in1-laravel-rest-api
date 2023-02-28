@@ -23,7 +23,7 @@ class WaterController extends Controller
             $todayDate = AppHelpers::getCurrentDate('Y-m-d');
             $userId = auth()->user()->getAuthIdentifier();
             $waterIntakes = DB::table('waters')
-                ->select(DB::raw('id, DATE_FORMAT(time, "%H:%i") as time, amount'))
+                ->select(DB::raw('id, time as today_time, DATE_FORMAT(time, "%H:%i") as time, amount'))
                 ->where('user_id', $userId)
                 ->whereRaw("DATE(time) = ?", [$todayDate])
                 ->orderBy('time')
@@ -33,7 +33,11 @@ class WaterController extends Controller
 
             // Format the individual water intake entries as objects
             $waterIntakeList = $waterIntakes->map(function($item) {
-                return ['id' => $item->id, 'time' => $item->time, 'amount' => $item->amount];
+                return ['id' => $item->id,
+                    'time' => $item->time,
+                    'today_time' => $item->today_time,
+                    'amount' => $item->amount,
+                    ];
             });
 
             // Combine the total and individual water intake into an associative array

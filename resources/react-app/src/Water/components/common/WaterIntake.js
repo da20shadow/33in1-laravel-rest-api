@@ -9,13 +9,12 @@ import Alert from "../../../components/ui/Alert";
 import {GrClose} from "react-icons/gr";
 
 
-function WaterIntake({id,time,amount,getUpdatedWater}){
+function WaterIntake({id,time,today_time,amount,getUpdatedWater}){
 
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [errors, setErrors] = useState('');
     const [success, setSuccess] = useState('');
-
 
     const editAmountOfWaterIntake = (e) => {
         const updatedAmount = e.currentTarget.value;
@@ -29,6 +28,7 @@ function WaterIntake({id,time,amount,getUpdatedWater}){
             }).catch(err => {
                 getUpdatedWater(err);
             });
+
         }else {
             setErrors('Въвели сте невалидно количество вода!');
             setTimeout(() => {
@@ -36,7 +36,42 @@ function WaterIntake({id,time,amount,getUpdatedWater}){
             },3000);
         }
     }
+    const editHourOfWaterIntake = (e) => {
+        const hours = e.currentTarget.value;
+        const date = new Date(today_time);
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const time = `${hours}:${minutes}`;
+        const changedTime = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${time}`;
 
+        waterService.update(id, {time: changedTime}).then(r => {
+            setSuccess(`Успешно променихте часа на ${time}`)
+            getUpdatedWater(r);
+            setTimeout(() => {
+                setSuccess('');
+            },3000);
+        }).catch(err => {
+            getUpdatedWater(err);
+        });
+    }
+    const editMinutesOfWaterIntake = (e) => {
+        const minutes = e.currentTarget.value;
+        const date = new Date(today_time);
+        const hours = date.getHours().toString().padStart(2, '0');
+        const time = `${hours}:${minutes}`;
+        const changedTime = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${time}`;
+
+        console.log(changedTime)
+
+        waterService.update(id, {time: changedTime}).then(r => {
+            setSuccess(`Успешно променихте минутите на ${time}`)
+            getUpdatedWater(r);
+            setTimeout(() => {
+                setSuccess('');
+            },3000);
+        }).catch(err => {
+            getUpdatedWater(err);
+        });
+    }
     const deleteWatterIntake = () => {
         const waterIdToRemove = id;
         waterService.remove(id).then(r => {
@@ -54,12 +89,6 @@ function WaterIntake({id,time,amount,getUpdatedWater}){
         });
     }
 
-    const editHourOfWaterIntake = (e) => {
-        console.log('Edit Hour',e.currentTarget.value)
-    }
-    const editMinutesOfWaterIntake = (e) => {
-        console.log('Edit Minute',e.currentTarget.value)
-    }
 
     const openDeleteWaterIntakeModal = (waterData) => {
         console.log('DELETE: ', waterData);
@@ -117,11 +146,11 @@ function WaterIntake({id,time,amount,getUpdatedWater}){
                                 <div className="grid grid-cols-2 gap-1 justify-items-stretch">
                                     <div>
                                         <label className={'block text-center text-[13px]'}>Час</label>
-                                        <Select onChange={editHourOfWaterIntake} defaultValue={time} options={hoursInDay} />
+                                        <Select onChange={editHourOfWaterIntake} defaultValue={time.substr(0,2)} options={hoursInDay} />
                                     </div>
                                     <div>
                                         <label className={'block text-center text-[13px]'}>Минути</label>
-                                        <Select onChange={editMinutesOfWaterIntake} defaultValue={time} options={minutesInHour} />
+                                        <Select onChange={editMinutesOfWaterIntake} defaultValue={time.substr(3,5)} options={minutesInHour} />
                                     </div>
                                 </div>
 

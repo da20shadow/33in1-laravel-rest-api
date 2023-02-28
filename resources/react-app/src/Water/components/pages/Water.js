@@ -17,6 +17,7 @@ function Water() {
 
     const [waterIntakeList, setWaterIntakeList] = useState([]);
     useEffect(() => {
+        console.log('useEffect')
         waterService.getTodays().then(r => {
             setTodayWater(r.totalIntakeWater);
             setTodayWaterLoading(false);
@@ -56,26 +57,36 @@ function Water() {
     }
 
     const setUpdatedWater = (changedWater, remove = false) => {
-        let newTotalIntake = 0;
-        let waterList;
-        if (remove) {
-            waterList = waterIntakeList.filter(w => {
-                newTotalIntake += Number(w.amount);
-                return w.id !== changedWater.id;
-            });
-        } else {
-            waterList = waterIntakeList.map(w => {
-                if (w.id === changedWater.id) {
-                    newTotalIntake += Number(changedWater.amount);
-                    const updatedTime = changedWater.time.substr(changedWater.time.length - 5, changedWater.time.length);
-                    return {...changedWater, time: updatedTime};
-                }
-                newTotalIntake += Number(w.amount);
-                return w;
-            });
-        }
-        setTodayWater(newTotalIntake);
-        setWaterIntakeList(waterList);
+        // let newTotalIntake = 0;
+        // let waterList;
+        // if (remove) {
+        //     waterList = waterIntakeList.filter(w => {
+        //         newTotalIntake += Number(w.amount);
+        //         return w.id !== changedWater.id;
+        //     });
+        // } else {
+        //     waterList = waterIntakeList.map(w => {
+        //         if (w.id === changedWater.id) {
+        //             newTotalIntake += Number(changedWater.amount);
+        //             const updatedTime = changedWater.time.substr(changedWater.time.length - 5, changedWater.time.length);
+        //             return {...changedWater, time: updatedTime};
+        //         }
+        //         newTotalIntake += Number(w.amount);
+        //         return w;
+        //     });
+        // }
+        // setTodayWater(newTotalIntake);
+        // setWaterIntakeList(waterList);
+        waterService.getTodays().then(r => {
+            setTodayWater(r.totalIntakeWater);
+            setTodayWaterLoading(false);
+            setWaterIntakeList(r.waterIntakeList);
+        }).catch(err => {
+            console.log('Get Today Water Error: ', err)
+            if (err.message === 'Unauthenticated') {
+                logoutUser();
+            }
+        })
     }
 
     return (
@@ -116,7 +127,8 @@ function Water() {
                 <div>
                     <h3 className="my-5 text-2xl text-gray-300 text-center border-t">Приета вода за деня:</h3>
                     {waterIntakeList.map(w => <WaterIntake getUpdatedWater={setUpdatedWater} key={w.id} id={w.id}
-                                                           time={w.time} amount={w.amount}/>)}
+                                                           time={w.time} today_time={w.today_time}
+                                                           amount={w.amount}/>)}
                 </div>
             </main>
 
