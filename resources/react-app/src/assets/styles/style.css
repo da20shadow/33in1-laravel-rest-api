@@ -1,5 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.centered {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 /*# sourceMappingURL=style.css.map */

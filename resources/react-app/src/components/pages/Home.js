@@ -1,18 +1,7 @@
-import {waterService} from "../../services";
 import {Link} from "react-router-dom";
-import tailwindClasses from "../../constants/tailwindClasses";
+import tailwindClasses from "../../shared/constants/tailwindClasses";
 
 function Home() {
-
-    const getDta = (e) => {
-        e.preventDefault();
-        waterService.getAllTestOne().then(r => {
-            console.log(r)
-        }).catch(err => {
-            console.log(err)
-        })
-
-    }
 
     return (
         <>

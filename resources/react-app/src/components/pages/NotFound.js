@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import tailwindClasses from "../../constants/tailwindClasses";
+import tailwindClasses from "../../shared/constants/tailwindClasses";
 
 function NotFound() {
     return (

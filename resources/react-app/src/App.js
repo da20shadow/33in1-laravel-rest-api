@@ -1,33 +1,24 @@
-import {
-    Header,
-    Home,
-    Dashboard,
-    Login,
-    Register,
-    BodyComposition,
-    AddBodyComposition,
-    EditBodyComposition, Water, WaterStat, Sleep, Food, Work, Workout, NotFound
-} from "./components";
 import {Routes,Route,Navigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {authService, userService} from "./services";
 import {useStateContext} from "./context/ContextProvider";
+import {Header, Home, NotFound} from "./components";
+import {AddBodyComposition, BodyComposition, Dashboard, EditBodyComposition, Login, Register} from "./User/components";
+import {Sleep} from "./Sleep/components";
+import {Water, WaterStat} from "./Water/components";
+import {Food} from "./Food/components";
+import {Work} from "./Work/components";
+import {Workout} from "./Workout/components";
+import {userService} from "./User/services";
 
 function App() {
     const {user,isLogged,loginUser,logoutUser} = useStateContext();
     useEffect(() => {
-        console.log('App.js useEffect ContextProvider user',user)
         let localStoreUser = localStorage.getItem('user');
-        console.log('App.js useEffect localStore user ', localStoreUser)
         if (!isLogged || !localStoreUser) {
-            console.log('There is no info in the Context!')
-            console.log('Checking with request to the server...!')
             userService.get().then(r => {
                 loginUser(r.token)
                 console.log(r)
             }).catch(err => {
-                console.log('Error: ', err)
-                console.log('Error: ', err.message)
                 if (err.message === 'Unauthenticated.') {
                     logoutUser()
                 }
