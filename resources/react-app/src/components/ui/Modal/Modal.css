@@ -1,0 +1,32 @@
+/* The modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The modal */
+.modal {
+    position: absolute;
+    top: 150px;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+ /* Close button */
+.close-button {
+    display: flex;
+    gap: 5px;
+    font-size: 25px;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
